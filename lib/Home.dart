@@ -1,5 +1,8 @@
-import 'package:employment/Card.dart';
 import 'package:flutter/material.dart';
+import 'Data.dart';
+import 'dart:ui';
+import 'Variable.dart';
+
 
 class Home extends StatefulWidget {
   @override
@@ -11,9 +14,28 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: SearchBar(),
+        title: SearchBar()
       ),
-      body:InfoList()
+      body:Stack(
+        children: <Widget>[
+          InfoList(),
+          Center(
+            child: ClipRect(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 3.0,sigmaY: 3.0),
+                child: Opacity(
+                  opacity: 0.01,
+                  child: Container(
+                    width: showGlass ? 500.0 : 0.0,
+                    height: showGlass ? 700.0 : 0.0,
+                    decoration: BoxDecoration(color: Colors.grey.shade200),//盒子修饰器
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
+      )
     );
   }
 }
@@ -27,23 +49,20 @@ class _SearchBarState extends State<SearchBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 200,
-      height: 50,
+      decoration: new BoxDecoration(
+        border: Border.all(color: Colors.grey, width: 1.0),
+        color: Colors.white,
+        borderRadius: BorderRadius.all( Radius.circular(5.0)),
+      ),
+      alignment: Alignment.center,
+      height: 38,
       child: TextField(
-
         decoration: InputDecoration(
           hasFloatingPlaceholder: false,
           prefixIcon: Icon(
             Icons.search
           ),
           hintText: "搜索",
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-              Radius.circular(10)
-              )
-            ),
-
-            fillColor: Colors.grey
         ),
       ),
     );
@@ -79,53 +98,53 @@ class _InfoListState extends State<InfoList> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-        itemCount: infoList.length,
-        itemBuilder: (context, index) {
-//          return ListTile(
-//            title: Text(infoList[index].name),
-//            subtitle: Text(infoList[index].status),
-//          );
-        return getItem(index);
-        },
-        separatorBuilder: (BuildContext context, int index){
-          return Divider(color: Colors.blue);
-        }
+    return Container(
+      child: ListView.separated(
+          itemCount: infoList.length,
+          itemBuilder: (context, index) {
+          return getItem(index);
+          },
+          separatorBuilder: (BuildContext context, int index){
+            return Divider(color: Colors.blue);
+          }
+      ),
     );
   }
 
   Widget getItem(int index){
     return GestureDetector(
       child: Container(
-
         child: ListTile(
             title: Text(infoList[index].name),
             subtitle: Text(infoList[index].status)
         ),
       ),
       onTap: (){
-        showDialog<void>(
-          context: context,
-//          barrierDismissible: barrierDismissible,
-          // false = user must tap button, true = tap outside dialog
-          builder: (BuildContext dialogContext) {
-            return SimpleDialog(
-                title: Text("SimpleDialog"),
-                titlePadding: EdgeInsets.all(10),
-                backgroundColor: Colors.white,
-                elevation: 5,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(6))
-                ),
-              children: <Widget>[
-                Text("姓名：${infoList[index].name}"),
-                Text("学号："),
-                Text("专业："),
-                Text("就业情况："),
-              ],
-            );
-          },
-        );
+
+        setState(() {
+          showGlass = true;
+        });
+
+        showGeneralDialog(
+            context: context,
+            pageBuilder: (context, anim1, anim2) {},
+//            barrierColor: Colors.grey.withOpacity(0.5),
+            barrierDismissible: false,
+            barrierLabel: "",
+            transitionDuration: Duration(milliseconds: 250),
+            transitionBuilder: (context, anim1, anim2, child) {
+              return Transform.scale(
+                  scale: anim1.value,
+                  child: AnimatedContainer(
+//                    opacity: anim1.value,
+                    duration: Duration(milliseconds: 250),
+                    curve: Curves.easeInOut,
+                    child: (
+                        InfoDialog()
+                    )
+                  ));
+            });
+
       },
     );
   }
