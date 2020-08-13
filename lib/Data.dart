@@ -74,7 +74,7 @@ class _InfoDialogState extends State<InfoDialog> {
                     Padding(
                       padding: EdgeInsets.only(left: 8, right: 230),
                       child: (Text(
-                      "姓名：张三",
+                      "张三",
                         style: TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
