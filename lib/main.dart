@@ -20,6 +20,7 @@ class _MyAppState extends State<MyApp> {
     return new MaterialApp(
       title: 'Welcome to Flutter',
       home: Tabs(),
+
     );;
   }
 }
