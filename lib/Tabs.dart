@@ -18,7 +18,24 @@ class _Tabs extends State<Tabs> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      body: this._itemList[this._currentIndex],
+//      body: this._itemList[this._currentIndex],
+      body: Stack(
+
+        children: [
+          Offstage(
+            offstage: _currentIndex != 0,
+            child: _itemList[0],
+          ),
+          Offstage(
+            offstage: _currentIndex != 1,
+            child:_itemList[1],
+          ),
+          Offstage(
+            offstage: _currentIndex != 2,
+            child:_itemList[2],
+          ),
+        ]
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: this._currentIndex,
         onTap: (int index){
