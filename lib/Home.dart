@@ -19,22 +19,7 @@ class _HomeState extends State<Home> {
       body:Stack(
         children: <Widget>[
           InfoList(),
-          Center(
-            child: ClipRect(
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 3.0,sigmaY: 3.0),
-                child: Opacity(
-                  opacity: 0.01,
-                  child: Container(
-                    width: showGlass ? 500.0 : 0.0,
-                    height: showGlass ? 700.0 : 0.0,
-                    decoration: BoxDecoration(color: Colors.grey.shade200),//盒子修饰器
-                  ),
-                ),
-              ),
-            ),
-          )
-        ],
+          ],
       )
     );
   }
@@ -123,12 +108,13 @@ class _InfoListState extends State<InfoList> {
 
         setState(() {
           showGlass = true;
+          print("${showGlass}");
         });
 
         showGeneralDialog(
             context: context,
             pageBuilder: (context, anim1, anim2) {},
-//            barrierColor: Colors.grey.withOpacity(0.5),
+//            barrierColor:
             barrierDismissible: false,
             barrierLabel: "",
             transitionDuration: Duration(milliseconds: 250),
