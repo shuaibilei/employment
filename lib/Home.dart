@@ -1,6 +1,7 @@
 import 'dart:convert';
 
-import 'package:employment/Card.dart';
+
+import 'package:employment/Data.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
@@ -81,32 +82,20 @@ class InfoList extends StatefulWidget {
 /////////////////////获取数据保存状态/////////////////////////////
 class _InfoListState extends State<InfoList> with AutomaticKeepAliveClientMixin{
   List infoList = [];
-//  getData() async {
-//    Dio dio = new Dio();
-//
-//    Response res = await dio.get(
-//        'https://c.y.qq.com/splcloud/fcgi-bin/gethotkey.fcg?g_tk=5381&uin=0&notice=0&platform=h5&needNewCode=1&_=1513317614040');
-//    print('key');
-//    var hotkey = json.decode(res.data)['data']['hotkey'];
-//    setState(() {
-//      infoList = hotkey;
-//    });
-//  }
-
   getData() async {
     Dio dio = new Dio();
-    print(widget.keyword);
-    String word = widget.keyword;
-    Response res = await dio.get(
-        'https://c.y.qq.com/soso/fcgi-bin/client_search_cp?g_tk=5381&p=1&n=20&w=$word&format=json');
-    print('key');
 
-    List songs = json.decode(res.data)['data']['song']['list'];
+    Response res = await dio.get(
+        'https://c.y.qq.com/splcloud/fcgi-bin/gethotkey.fcg?g_tk=5381&uin=0&notice=0&platform=h5&needNewCode=1&_=1513317614040');
+    print('key');
+    var hotkey = json.decode(res.data)['data']['hotkey'];
     setState(() {
-      infoList = songs;
+      infoList = hotkey;
     });
   }
-    @override
+
+////页面保持状态
+  @override
   bool get wantKeepAlive => true;
   @override
   void initState() {
@@ -134,8 +123,8 @@ class _InfoListState extends State<InfoList> with AutomaticKeepAliveClientMixin{
       child: Container(
 
         child: ListTile(
-            title: Text(infoList[index]['songname']),
-            subtitle: Text(infoList[index]['songname'])
+            title: Text(infoList[index]['k']),
+            subtitle: Text(infoList[index]['k'])
         ),
       ),
       onTap: (){
@@ -156,12 +145,12 @@ class _InfoListState extends State<InfoList> with AutomaticKeepAliveClientMixin{
                 Text("专业：${infoList[index]["strMediaMid"]}"),
                 Text("就业情况：${infoList[index]["stream"]}"),
               ],
-            );
-          },
-        );
-      },
-    );
-  }
+);
+},
+);
+},
+);
+}
 }
 
 
@@ -179,7 +168,6 @@ class _hotSearchState extends State<hotSearch> {
     Response res = await dio.get(
         'https://c.y.qq.com/splcloud/fcgi-bin/gethotkey.fcg?g_tk=5381&uin=0&notice=0&platform=h5&needNewCode=1&_=1513317614040'
     );
-
     var hotkey = json.decode(res.data)['data']['hotkey'];
     setState(() {
       data = hotkey;
@@ -200,15 +188,12 @@ class _hotSearchState extends State<hotSearch> {
         itemBuilder: (context, index) {
           return ListTile(
             title: Text(data[index]['k']),
-
           );
-
         },
         separatorBuilder: (BuildContext context, int index){
           return Divider(color: Colors.blue);
         }
     );
-
   }
 }
 
@@ -229,9 +214,7 @@ class _searchResultState extends State<searchResult> {
     Response res = await dio.get(
         'https://c.y.qq.com/soso/fcgi-bin/client_search_cp?g_tk=5381&p=1&n=20&w=$word&format=json');
     print('key');
-
     List songs = json.decode(res.data)['data']['song']['list'];
-
     setState(() {
       data = songs;
     });
@@ -267,27 +250,25 @@ class _searchResultState extends State<searchResult> {
         ),
       ),
       onTap: (){
-        showDialog<void>(
-          context: context,
-
-          builder: (BuildContext dialogContext) {
-            return SimpleDialog(
-              title: Text("学生信息"),
-              titlePadding: EdgeInsets.all(10),
-              backgroundColor: Colors.white,
-              elevation: 5,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(6))
-              ),
-              children: <Widget>[
-                Text("姓名：${data[index]["songname"]}"),
-                Text("学号：${data[index]["songname_hilight"]}"),
-                Text("专业：${data[index]["strMediaMid"]}"),
-                Text("就业情况：${data[index]["stream"]}"),
-              ],
-            );
-          },
-        );
+        showGeneralDialog(
+            context: context,
+            pageBuilder: (context, anim1, anim2) {},
+//            barrierColor:
+            barrierDismissible: false,
+            barrierLabel: "",
+            transitionDuration: Duration(milliseconds: 250),
+            transitionBuilder: (context, anim1, anim2, child) {
+              return Transform.scale(
+                  scale: anim1.value,
+                  child: AnimatedContainer(
+//                    opacity: anim1.value,
+                      duration: Duration(milliseconds: 250),
+                      curve: Curves.easeInOut,
+                      child: (
+                          InfoDialog()
+                      )
+                  ));
+            });
       },
     );
   }

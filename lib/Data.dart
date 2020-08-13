@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:employment/Variable.dart';
 import 'package:flutter/material.dart';
 
+
 class Data extends StatefulWidget {
   @override
   _DataState createState() => _DataState();
@@ -21,6 +22,7 @@ class InfoDialog extends StatefulWidget {
 }
 
 class _InfoDialogState extends State<InfoDialog> {
+  
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -72,7 +74,7 @@ class _InfoDialogState extends State<InfoDialog> {
                     Padding(
                       padding: EdgeInsets.only(left: 8, right: 230),
                       child: (Text(
-                        "张三",
+                      "姓名：张三",
                         style: TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
@@ -171,5 +173,6 @@ class _InfoDialogState extends State<InfoDialog> {
     );
   }
 }
+
 
 
