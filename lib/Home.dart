@@ -3,6 +3,8 @@ import 'package:employment/search.dart';
 import 'package:employment/searchbar.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'json.dart';
+import 'package:http/http.dart'as http;
 
 class Home extends StatefulWidget {
   @override
@@ -69,39 +71,50 @@ class _SearchBarState extends State<SearchBar> {
 
 
 class InfoList extends StatefulWidget {
-  String keyword;
-  InfoList({Key key, this.keyword}) : super(key: key);
+
   _InfoListState createState() => _InfoListState();
 }
 /////////////////////获取数据保存状态/////////////////////////////
-class _InfoListState extends State<InfoList> with AutomaticKeepAliveClientMixin{
+class _InfoListState extends State<InfoList> {
   List infoList = [];
-  getData() async {
-    Dio dio = new Dio();
-
-    Response res = await dio.get(
-        'https://c.y.qq.com/splcloud/fcgi-bin/gethotkey.fcg?g_tk=5381&uin=0&notice=0&platform=h5&needNewCode=1&_=1513317614040');
-    print('key');
-    var hotkey = json.decode(res.data)['data']['hotkey'];
-    setState(() {
-      infoList = hotkey;
-    });
+  Json list;
+  String error;
+  bool loading;
+  Future<Json> _loadData() async{
+    var res=await http.get('http://thesecondclass.linaxhua.cn/api/academy/findAll?page=1&pagesize=8');
+    if(res.statusCode == 200){
+      return Json.fromJson(jsonDecode(res.body));
+    }else{
+      Future.error("网络访问失败");
+    }
   }
-////页面保持状态
-  @override
-  bool get wantKeepAlive => true;
+
+
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    this.getData();
+    loading =true;
+    _loadData().then((v){
+      list=v;
+      loading=false;
+      setState(() {
+      });
+    }).catchError((e){
+      error=e;
+      loading=false;
+
+    });
   }
 //////////////////////搜索栏Listview搭建//////////////////////////
   @override
   Widget build(BuildContext context) {
-    super.build(context);
-    return ListView.separated(
-        itemCount: infoList.length,
+
+    return loading?Center(child: CircularProgressIndicator())
+    :ListView.separated(
+
+        itemCount: list.data.length,
         itemBuilder: (context, index) {
         return getItem(index);
         },
@@ -113,11 +126,12 @@ class _InfoListState extends State<InfoList> with AutomaticKeepAliveClientMixin{
 ///////////////////////////点击弹出//////////////////////////////
   Widget getItem(int index){
     return GestureDetector(
-      child: Container(
+      child: loading?Center(child: CircularProgressIndicator())
+          :Container(
 
         child: ListTile(
-            title: Text(infoList[index]['k']),
-            subtitle: Text(infoList[index]['k'])
+            title: Text(list.data[index].name),
+            subtitle: Text(list.data[index].details)
         ),
       ),
       onTap: (){
@@ -133,10 +147,8 @@ class _InfoListState extends State<InfoList> with AutomaticKeepAliveClientMixin{
                     borderRadius: BorderRadius.all(Radius.circular(6))
                 ),
               children: <Widget>[
-                Text("姓名：${infoList[index]["songname"]}"),
-                Text("学号：${infoList[index]["songname_hilight"]}"),
-                Text("专业：${infoList[index]["strMediaMid"]}"),
-                Text("就业情况：${infoList[index]["stream"]}"),
+                Text("学院id：${list.data[index].id}"),
+                Text("学院num：${list.data[index].number}"),
               ],
       );
       },
