@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
+import 'Login/LoginPager.dart';
 import 'package:flutter/services.dart';
 import 'Tabs.dart';
 import 'dart:io';
@@ -18,6 +20,18 @@ void main() {
 
   }
 }
+//Future<void> main() async {
+//  SharedPreferences prefs = await SharedPreferences.getInstance();
+//  var email = prefs.getString('email');
+//  print(email);
+//  runApp(MaterialApp(home: email == null ? LoginPage() : MyApp()));
+//}
+//class MyApp extends StatelessWidget {
+//  @override
+//  Widget build(BuildContext context) {
+//    return
+//  }
+//}
 
 //class MyApp extends StatelessWidget {
 //  @override
@@ -31,7 +45,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
