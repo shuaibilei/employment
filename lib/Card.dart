@@ -1,38 +1,110 @@
 import 'package:flutter/material.dart';
-import 'Home.dart';
 
-class InfoCard extends StatefulWidget {
-  @override
-  _InfoCardState createState() => _InfoCardState();
-}
+class BarCard extends StatelessWidget {
 
-class _InfoCardState extends State<InfoCard> {
+  double widthOfCard;
+  double heightOfCard;
+  String category;
+
+  BarCard({this.widthOfCard, this.heightOfCard, this.category});
+
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Colors.blueAccent,
-      //z轴的高度，设置card的阴影
-      elevation: 20.0,
-      //设置shape，这里设置成了R角
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(20.0)),),
-      //对Widget截取的行为，比如这里 Clip.antiAlias 指抗锯齿
-      clipBehavior: Clip.antiAlias,
-      semanticContainer: false,
-      child: getChild(),
-    );
-  }
-
-  getChild() {
     return Container(
-      color: Colors.deepPurpleAccent,
-      width: 200,
-      height: 150,
-      alignment: Alignment.center,
-      child: Text(
-        "Card",
-        style: TextStyle(fontSize: 28, color: Colors.white),
-      ),
+        margin: EdgeInsets.only(top: 40, bottom: 10),
+        child: SizedBox(
+          height: heightOfCard,
+          width: widthOfCard,
+          child: Card(
+            color: Colors.white70,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(20.0),
+              ),
+            ),
+            shadowColor: Colors.black,
+            elevation: 30,
+            child: Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "今年${category}人数同去年相比：",
+                      style: TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                  Divider(),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 4.0),
+                            child: Text("今年：390人"),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 10.0),
+                            child: Container(
+                              height: 30,
+                              width: widthOfCard,
+                              decoration: ShapeDecoration(
+                                  color: category=="就业" ? Colors.blue : Colors.deepOrange,
+                                  shape: new RoundedRectangleBorder(
+                                    borderRadius: new BorderRadius.all(new Radius.circular(5.0)),
+                                  )
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 4.0),
+                            child: Text("去年：390人"),
+                          ),
+                          Container(
+                            height: 30,
+                            width: 100,
+                            decoration: ShapeDecoration(
+                                color: Colors.grey,
+                                shape: new RoundedRectangleBorder(
+                                  borderRadius: new BorderRadius.all(new Radius.circular(5.0)),
+                                )
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ));
+  }
+}
+
+
+class PieCard extends StatelessWidget {
+
+  double widthOfCard;
+
+  PieCard({this.widthOfCard});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 400,
+      width: 300,
+      decoration: ShapeDecoration(
+          color: Colors.blue,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(20.0),
+              ))),
+
     );
   }
 }

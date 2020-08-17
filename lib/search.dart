@@ -62,7 +62,6 @@ class _searchResultState extends State<searchResult> {
         showGeneralDialog(
             context: context,
             pageBuilder: (context, anim1, anim2) {},
-//            barrierColor:
             barrierDismissible: false,
             barrierLabel: "",
             transitionDuration: Duration(milliseconds: 250),
@@ -70,7 +69,6 @@ class _searchResultState extends State<searchResult> {
               return Transform.scale(
                   scale: anim1.value,
                   child: AnimatedContainer(
-//                    opacity: anim1.value,
                       duration: Duration(milliseconds: 250),
                       curve: Curves.easeInOut,
                       child: (

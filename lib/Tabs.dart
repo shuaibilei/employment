@@ -12,7 +12,7 @@ class _Tabs extends State<Tabs> {
   int _currentIndex = 0;
   List _itemList = [
     Home(),
-    Data(),
+//    Data(),
     Chart()
   ];
   @override
@@ -30,10 +30,10 @@ class _Tabs extends State<Tabs> {
             offstage: _currentIndex != 1,
             child:_itemList[1],
           ),
-          Offstage(
-            offstage: _currentIndex != 2,
-            child:_itemList[2],
-          ),
+//          Offstage(
+//            offstage: _currentIndex != 2,
+//            child:_itemList[2],
+//          ),
         ]
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -43,19 +43,19 @@ class _Tabs extends State<Tabs> {
             this._currentIndex = index;
           });
         },
-
+        backgroundColor: Colors.white,
         items: [
           BottomNavigationBarItem(
               icon: Icon(Icons.home),
               title: Text("首页")
           ),
+//          BottomNavigationBarItem(
+//              icon: Icon(Icons.add),
+//              title: Text("添加")
+//          ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.add),
-              title: Text("添加")
-          ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              title: Text("个人")
+              icon: Icon(Icons.trending_up),
+              title: Text("数据")
           )
         ],
       ),
