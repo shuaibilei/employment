@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 //import 'package:shared_preferences/shared_preferences.dart';
 import '../main.dart';
 
@@ -19,6 +20,26 @@ class _LoginPageState extends State<LoginPage> {
 
   //表单状态
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  //////////////判断登录//////
+//  final _userName = TextEditingController(); //用户名
+//  final _userPwd = TextEditingController();
+//  void _login() {
+//    showDialog(
+//        context: context,
+//        builder: (context) {
+//          if (_userName.text == "admin" && _userPwd.text == "123456") {
+//            String sucess = "登录成功 \n" + _userName.text;
+//            return AlertDialog(
+//              content: Text(sucess),
+//            );
+//          } else {
+//            String err = "登录失败 \n 账号或密码错误";
+//            return AlertDialog(
+//              content: Text(err),
+//            );
+//          }
+//        });
+//  }
 
   var _password = '';//用户名
   var _username = '';//密码
@@ -46,6 +67,7 @@ class _LoginPageState extends State<LoginPage> {
       });
     });
     super.initState();
+//    _getLoginMsg();
   }
 
   @override
@@ -169,24 +191,23 @@ class _LoginPageState extends State<LoginPage> {
           //点击登录按钮，解除焦点，回收键盘
           _focusNodePassWord.unfocus();
           _focusNodeUserName.unfocus();
-
           if (_formKey.currentState.validate()) {
             //只有输入通过验证，才会执行这里
             _formKey.currentState.save();
-//            SharedPreferences prefs = await SharedPreferences.getInstance();
-//            prefs.setString(_username, _password);
-            //todo 登录操作
             Navigator.of(context).
-                    pushAndRemoveUntil(new MaterialPageRoute(builder: (
-                        context) => new MyApp()),
-                            (route) => route == null);
+            pushAndRemoveUntil(new MaterialPageRoute(builder: (
+                context) => new MyApp()),
+                    (route) => route == null);
+//     _login();
+//     _saveLoginMsg();
           }
-
         },
       ),
     );
 
-    return Scaffold(
+    return  Container(
+
+   child: Scaffold(
       backgroundColor: Colors.white,
       body: new GestureDetector(
         onTap: (){
@@ -204,7 +225,7 @@ class _LoginPageState extends State<LoginPage> {
           ],
         ),
       ),
-    );
+    ));
   }
 }
 
