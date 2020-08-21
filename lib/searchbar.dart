@@ -65,45 +65,6 @@ class SearchBarView extends SearchDelegate<String> {
 
       ////////////TODO:将数据传入suggtion
 
-//      return Scaffold(
-//          body: FutureBuilder<Json>(
-//              future: _loadData(),
-//              builder: ( context,snapshot) {
-//                if(snapshot.connectionState == ConnectionState.done){
-//                  print("lianjie");
-//                  if(snapshot.hasData){
-//                    print("nihao");
-//                    var date = jsonDecode(snapshot.data.toString());
-//                    List<Map> swiper = (date['data'] as List).cast();
-//                    return ListView.builder(
-//                        itemCount: swiper.length,
-//                        itemBuilder: (BuildContext context, int index) {
-//                          return InkWell(
-////                            onTap: (){
-////                              Navigator.of(context).push(
-////                                  MaterialPageRoute(builder: (context)=>DetailPage(
-////                                      eachVodId: List.of(data["data"])[index]['id'],
-////                                      eachVodName:List.of(data["data"])[index]['vod_name'],
-////                                      p:1
-////
-////                                  ))
-////                              );
-////                            },
-//                            child:ListTile(title: Text("date.data")),
-//                          );
-//
-//                        }
-//                    );
-//                  }else{
-//                    return Center(child: Text("no datas"));
-//                  }
-//
-//                }else{
-//                  return Center(child: CircularProgressIndicator());
-//                }
-//
-//              })
-//      );
       return ListView.builder(
         itemCount: suggestionList.length,
         itemBuilder: (contex, index) =>

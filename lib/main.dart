@@ -1,14 +1,24 @@
 
 import 'package:flutter/material.dart';
-//import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'Login/LoginPager.dart';
 import 'package:flutter/services.dart';
 import 'Tabs.dart';
 import 'dart:io';
-void main() => runApp(new MyApp1());
-
+//void main() => runApp(new MyApp1());
+Future<void> main() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  var email = prefs.getString('usename');
+  print(email);
+    if(email==Null){
+    runApp(new MyApp1());
+  }
+  else{
+    runApp(new MyApp());
+  }
+}
 //void main() {
-//  runApp(LoginPage());
+//  runApp(MyApp1());
 //  if (Platform.isAndroid) {
 //    // 以下两行 设置android状态栏为透明的沉浸。写在组件渲染之后，是为了在渲染后进行set赋值，覆盖状态栏，写在渲染之前MaterialApp组件会覆盖掉这个值。
 //    SystemUiOverlayStyle systemUiOverlayStyle =
@@ -24,12 +34,11 @@ void main() => runApp(new MyApp1());
 //  SharedPreferences prefs = new SharedPreferences();
 //  var email = prefs.getString('email');
 //  print(email);
-//  runApp(MaterialApp(home: email == null ? LoginPage() : MyApp()));
-//}
-//class MyApp extends StatelessWidget {
-//  @override
-//  Widget build(BuildContext context) {
-//    return
+//  if(email==Null){
+//    runApp(new MyApp1());
+//  }
+//  else{
+//    runApp(new MyApp());
 //  }
 //}
 //class MyApp extends StatelessWidget {
@@ -38,6 +47,8 @@ void main() => runApp(new MyApp1());
 //    return
 //  }
 //}
+
+
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();

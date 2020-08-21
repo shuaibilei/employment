@@ -7,13 +7,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
-//IconButton(
-//icon: Icon(Icons.search),
-//onPressed: () {
-//showSearch(context: context, delegate: SearchBarView());
-//}
-//),
-
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();

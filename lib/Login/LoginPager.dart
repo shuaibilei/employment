@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 //import 'package:shared_preferences/shared_preferences.dart';
 import '../main.dart';
@@ -10,7 +11,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
+    final String usename=null;
   //焦点
   FocusNode _focusNodeUserName = new FocusNode();
   FocusNode _focusNodePassWord = new FocusNode();
@@ -21,25 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   //表单状态
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   //////////////判断登录//////
-//  final _userName = TextEditingController(); //用户名
-//  final _userPwd = TextEditingController();
-//  void _login() {
-//    showDialog(
-//        context: context,
-//        builder: (context) {
-//          if (_userName.text == "admin" && _userPwd.text == "123456") {
-//            String sucess = "登录成功 \n" + _userName.text;
-//            return AlertDialog(
-//              content: Text(sucess),
-//            );
-//          } else {
-//            String err = "登录失败 \n 账号或密码错误";
-//            return AlertDialog(
-//              content: Text(err),
-//            );
-//          }
-//        });
-//  }
+
 
   var _password = '';//用户名
   var _username = '';//密码
@@ -194,14 +177,22 @@ class _LoginPageState extends State<LoginPage> {
           if (_formKey.currentState.validate()) {
             //只有输入通过验证，才会执行这里
             _formKey.currentState.save();
+            if (_username == "admin" && _password == "123456") {
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+
+              prefs.setString('usename', _username);
+            String sucess = "登录成功 \n" + _username;
             Navigator.of(context).
-            pushAndRemoveUntil(new MaterialPageRoute(builder: (
-                context) => new MyApp()),
+              pushAndRemoveUntil(new MaterialPageRoute(builder: (
+              context) => new MyApp()),
                     (route) => route == null);
-//     _login();
+            return AlertDialog(
+              content: Text(sucess),
+            );
+
 //     _saveLoginMsg();
           }
-        },
+        }}
       ),
     );
 

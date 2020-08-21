@@ -26,7 +26,8 @@ class _searchResultState extends State<searchResult> {
     items.add(widget.keyword);
     String word = widget.keyword;
     Response res = await dio.get(
-        'https://c.y.qq.com/soso/fcgi-bin/client_search_cp?g_tk=5381&p=1&n=20&w=$word&format=json');
+        'https://c.y.qq.com/soso/fcgi-bin/client_search_cp?g_tk=5381&p=1&n=20&w=$word&format=json'
+    );
     print('key');
     List songs = json.decode(res.data)['data']['song']['list'];
     setState(() {
