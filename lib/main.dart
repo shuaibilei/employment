@@ -1,22 +1,25 @@
 
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
 import 'Login/LoginPager.dart';
-import 'package:flutter/services.dart';
+
 import 'Tabs.dart';
-import 'dart:io';
+//
 //void main() => runApp(new MyApp1());
-Future<void> main() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  var email = prefs.getString('usename');
-  print(email);
-    if(email==Null){
+//Future<void> main() async {
+//  SharedPreferences prefs = await SharedPreferences.getInstance();
+//  var email = prefs.getString('usename');
+//  print(email);
+//  runApp(MaterialApp(home: email == null ? MyApp1() : MyApp()));}
+void main(){
+  String email = null;
+  if(email  ==   null){
     runApp(new MyApp1());
   }
   else{
     runApp(new MyApp());
-  }
-}
+  }}
+
 //void main() {
 //  runApp(MyApp1());
 //  if (Platform.isAndroid) {
@@ -28,23 +31,6 @@ Future<void> main() async {
 //    );
 //    SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
 //
-//  }
-//}
-//void main() {
-//  SharedPreferences prefs = new SharedPreferences();
-//  var email = prefs.getString('email');
-//  print(email);
-//  if(email==Null){
-//    runApp(new MyApp1());
-//  }
-//  else{
-//    runApp(new MyApp());
-//  }
-//}
-//class MyApp extends StatelessWidget {
-//  @override
-//  Widget build(BuildContext context) {
-//    return
 //  }
 //}
 
@@ -65,6 +51,7 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
+
 class MyApp1 extends StatelessWidget {
 
   @override

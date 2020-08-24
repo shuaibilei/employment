@@ -1,26 +1,62 @@
+import 'dart:convert';
 import 'dart:ui';
-
+import 'package:http/http.dart'as http;
 import 'package:employment/Variable.dart';
+import 'package:employment/asset.dart';
 import 'package:flutter/material.dart';
 
-//class Data extends StatefulWidget {
-//  @override
-//  _DataState createState() => _DataState();
-//}
-//
-//class _DataState extends State<Data> {
-//  @override
-//  Widget build(BuildContext context) {
-//    return InfoDialog();
-//  }
-//}
+import 'intentjson.dart';
 
+
+
+class TransferDataEntity {
+
+  int _id;
+  String _sno;
+  String _sname;
+  int _academyId;
+  int _educationBackground;
+  int _majorId;
+  int _status;
+  String _employmentOrientation;
+  String _intentionalityCity1;
+  String _intentionalityCity2;
+  String _intentionalityCity3;
+  int _intentionalityJob1;
+  int _intentionalityJob2;
+  int _intentionalityJob3;
+  String _phone;
+  String _qq;
+  String _skill;
+  String _location;
+  String _company;
+  int _salary;
+  String _failedCourses;
+
+
+
+
+  TransferDataEntity( this._sno,this._sname,this._status,this._intentionalityCity1,this._employmentOrientation,this._skill,this._location,this._company);
+
+}
 class InfoDialog extends StatefulWidget {
+ final List<TransferDataEntity> keyword;
+
+  InfoDialog({Key key, @required this.keyword}) : super(key: key);
+
+
+
+
   @override
   _InfoDialogState createState() => _InfoDialogState();
 }
 
 class _InfoDialogState extends State<InfoDialog> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
@@ -71,7 +107,7 @@ class _InfoDialogState extends State<InfoDialog> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        "张三",
+                        widget.keyword[0]._sname,
                         style: TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
@@ -96,7 +132,7 @@ class _InfoDialogState extends State<InfoDialog> {
                     ],
                   ),
                   Text(
-                    "专业：软件工程",
+                   "学历："+ widget.keyword[0]._employmentOrientation,
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.normal,
@@ -104,7 +140,7 @@ class _InfoDialogState extends State<InfoDialog> {
                         decoration: TextDecoration.none),
                   ),
                   Text(
-                    "学号：18003003",
+                    "学号："+widget.keyword[0]._sno,
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.normal,
@@ -112,7 +148,7 @@ class _InfoDialogState extends State<InfoDialog> {
                         decoration: TextDecoration.none),
                   ),
                   Text(
-                    "毕业时间：2022",
+                    "地点："+widget.keyword[0]._intentionalityCity1,
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.normal,
@@ -120,7 +156,7 @@ class _InfoDialogState extends State<InfoDialog> {
                         decoration: TextDecoration.none),
                   ),
                   Text(
-                    "状态：就业",
+                    "职业："+widget.keyword[0]._skill,
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.normal,
@@ -128,7 +164,7 @@ class _InfoDialogState extends State<InfoDialog> {
                         decoration: TextDecoration.none),
                   ),
                   Text(
-                    "岗位：华为",
+                    "工作地点："+widget.keyword[0]._location,
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.normal,
@@ -136,7 +172,7 @@ class _InfoDialogState extends State<InfoDialog> {
                         decoration: TextDecoration.none),
                   ),
                   Text(
-                    "地点：深圳",
+                    "公司："+widget.keyword[0]._company,
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.normal,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
 
 //import 'package:shared_preferences/shared_preferences.dart';
 import '../main.dart';
@@ -178,9 +178,9 @@ class _LoginPageState extends State<LoginPage> {
             //只有输入通过验证，才会执行这里
             _formKey.currentState.save();
             if (_username == "admin" && _password == "123456") {
-              SharedPreferences prefs = await SharedPreferences.getInstance();
+//              SharedPreferences prefs = await SharedPreferences.getInstance();
 
-              prefs.setString('usename', _username);
+//              prefs.setString('usename', _username);
             String sucess = "登录成功 \n" + _username;
             Navigator.of(context).
               pushAndRemoveUntil(new MaterialPageRoute(builder: (

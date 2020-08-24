@@ -3,38 +3,33 @@ import 'dart:convert';
 
 import 'package:http/http.dart'as http;
 import 'package:dio/dio.dart';
-import 'package:employment/searchbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'Data.dart';
 import 'asset.dart';
-import 'json.dart';
+import 'intentjson.dart';
 ///////搜索结果//////
 class searchResult extends StatefulWidget {
   String keyword;
   searchResult({Key key, this.keyword}) : super(key: key);
-
   _searchResultState createState() => _searchResultState();
 }
 class _searchResultState extends State<searchResult> {
-  List data = [];
+  Intentjson list;
+  String error;
   bool loading;
-  getData() async {
-    Dio dio = new Dio();
-    print(widget.keyword);
+  Future<Intentjson>Data()async{
     items.add(widget.keyword);
-    String word = widget.keyword;
-    Response res = await dio.get(
-        'https://c.y.qq.com/soso/fcgi-bin/client_search_cp?g_tk=5381&p=1&n=20&w=$word&format=json'
+   final String word = widget.keyword;
+    var res= await http.get(
+        'http://thesecondclass.linaxhua.cn/api/Intention/queryBySno?sno=$word'
     );
-    print('key');
-    List songs = json.decode(res.data)['data']['song']['list'];
-    setState(() {
-      loading=false;
-      data = songs;
-    });
+    if(res.statusCode==200){
+      return Intentjson.fromJson(jsonDecode(res.body));
 
+    }else{
+      Future.error("请求失败");
+    }
   }
 
   @override
@@ -42,13 +37,27 @@ class _searchResultState extends State<searchResult> {
     loading=true;
     // TODO: implement initState
     super.initState();
-    this.getData();
+    Data().then((v){
+      list= v  ;
+      loading=false;
+      setState(() {
+      });
+    }).catchError((e){
+error=e;
+loading=false;
+
+    });
+
+
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-        itemCount: data.length,
+
+if(list.data!=null){
+    return loading?Center(child: CircularProgressIndicator())
+        :ListView.separated(
+        itemCount: list.data.length,
         itemBuilder: (context, index) {
           return getItem(index);
         },
@@ -56,7 +65,18 @@ class _searchResultState extends State<searchResult> {
           return Divider(color: Colors.blue);
         }
     );
+  }else{return ListView.separated(
+    itemCount: 0,
+    itemBuilder: (context, index) {
+      return getItem(index);
+    },
+    separatorBuilder: (BuildContext context, int index){
+      return Divider(color: Colors.blue);
+    }
+);
+}
   }
+
 
   Widget getItem(int index){
     return GestureDetector(
@@ -64,8 +84,8 @@ class _searchResultState extends State<searchResult> {
 
         child: loading?Center(child: CircularProgressIndicator())
         :ListTile(
-            title: Text(data[index]["songname"]),
-            subtitle: Text(data[index]["songname_hilight"])
+            title: Text(list.data[index].sname),
+            subtitle: Text(list.data[index].company)
         ),
       ),
       onTap: (){
@@ -76,13 +96,22 @@ class _searchResultState extends State<searchResult> {
             barrierLabel: "",
             transitionDuration: Duration(milliseconds: 250),
             transitionBuilder: (context, anim1, anim2, child) {
+
               return Transform.scale(
                   scale: anim1.value,
                   child: AnimatedContainer(
                       duration: Duration(milliseconds: 250),
                       curve: Curves.easeInOut,
-                      child: (
-                          InfoDialog()
+                      child: ( InfoDialog(
+                        keyword:List.generate(list.data.length, (index) => TransferDataEntity(list.data[index].sno.toString(),
+                            list.data[index].sname,
+                            list.data[index].status,
+                            list.data[index].intentionalityCity1,
+                            list.data[index].employmentOrientation,
+                            list.data[index].skill,
+                            list.data[index].location,
+                            list.data[index].company)),
+                      )
                       )
                   ));
             });
