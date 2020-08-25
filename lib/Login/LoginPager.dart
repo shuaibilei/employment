@@ -1,9 +1,6 @@
+import 'package:employment/Tabs.dart';
 import 'package:flutter/material.dart';
-//import 'package:shared_preferences/shared_preferences.dart';
-
-//import 'package:shared_preferences/shared_preferences.dart';
-import '../main.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -11,7 +8,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-    final String usename=null;
   //焦点
   FocusNode _focusNodeUserName = new FocusNode();
   FocusNode _focusNodePassWord = new FocusNode();
@@ -21,13 +17,13 @@ class _LoginPageState extends State<LoginPage> {
 
   //表单状态
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   //////////////判断登录//////
 
-
-  var _password = '';//用户名
-  var _username = '';//密码
-  var _isShowPwd = false;//是否显示密码
-  var _isShowClear = false;//是否显示输入框尾部的清除按钮
+  var _password = '';
+  var _username = '';
+  var _isShowPwd = false;
+  var _isShowClear = false;
 
   @override
   void initState() {
@@ -36,21 +32,18 @@ class _LoginPageState extends State<LoginPage> {
     _focusNodeUserName.addListener(_focusNodeListener);
     _focusNodePassWord.addListener(_focusNodeListener);
     //监听用户名框的输入改变
-    _userNameController.addListener((){
+    _userNameController.addListener(() {
       print(_userNameController.text);
 
       // 监听文本框输入变化，当有内容的时候，显示尾部清除按钮，否则不显示
       if (_userNameController.text.length > 0) {
         _isShowClear = true;
-      }else{
+      } else {
         _isShowClear = false;
       }
-      setState(() {
-
-      });
+      setState(() {});
     });
     super.initState();
-//    _getLoginMsg();
   }
 
   @override
@@ -64,8 +57,8 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   // 监听焦点
-  Future<Null> _focusNodeListener() async{
-    if(_focusNodeUserName.hasFocus){
+  Future<Null> _focusNodeListener() async {
+    if (_focusNodeUserName.hasFocus) {
       print("用户名框获取焦点");
       _focusNodePassWord.unfocus();
     }
@@ -74,28 +67,28 @@ class _LoginPageState extends State<LoginPage> {
       _focusNodeUserName.unfocus();
     }
   }
-  String validateUserName(value){
+
+  String validateUserName(value) {
     if (value.isEmpty) {
-      return '用户名不能为空!';}
+      return '用户名不能为空';
+    }
     return null;
   }
-  String validatePassWord(value){
+
+  String validatePassWord(value) {
     if (value.isEmpty) {
       return '密码不能为空';
     }
-
     return null;
   }
 
   @override
   Widget build(BuildContext context) {
-
     Widget inputTextArea = new Container(
-      margin: EdgeInsets.only(left: 20,right: 20),
+      margin: EdgeInsets.only(left: 20, right: 20),
       decoration: new BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(8)),
-          color: Colors.white
-      ),
+          color: Colors.white),
       child: new Form(
         key: _formKey,
         child: new Column(
@@ -111,20 +104,20 @@ class _LoginPageState extends State<LoginPage> {
                 hintText: "账号",
                 prefixIcon: Icon(Icons.person),
                 //尾部添加清除按钮
-                suffixIcon:(_isShowClear)
+                suffixIcon: (_isShowClear)
                     ? IconButton(
-                  icon: Icon(Icons.clear),
-                  onPressed: (){
-                    // 清空输入框内容
-                    _userNameController.clear();
-                  },
-                )
-                    : null ,
+                        icon: Icon(Icons.clear),
+                        onPressed: () {
+                          // 清空输入框内容
+                          _userNameController.clear();
+                        },
+                      )
+                    : null,
               ),
               //验证用户名
               validator: validateUserName,
               //保存数据
-              onSaved: (String value){
+              onSaved: (String value) {
                 _username = value;
               },
             ),
@@ -136,19 +129,19 @@ class _LoginPageState extends State<LoginPage> {
                   prefixIcon: Icon(Icons.lock),
                   // 是否显示密码
                   suffixIcon: IconButton(
-                    icon: Icon((_isShowPwd) ? Icons.visibility : Icons.visibility_off),
-                    onPressed: (){
+                    icon: Icon(
+                        (_isShowPwd) ? Icons.visibility : Icons.visibility_off),
+                    onPressed: () {
                       setState(() {
                         _isShowPwd = !_isShowPwd;
                       });
                     },
-                  )
-              ),
+                  )),
               obscureText: !_isShowPwd,
               //密码验证
-              validator:validatePassWord,
+              validator: validatePassWord,
               //保存数据
-              onSaved: (String value){
+              onSaved: (String value) {
                 _password = value;
               },
             )
@@ -159,68 +152,65 @@ class _LoginPageState extends State<LoginPage> {
 
     // 登录按钮区域
     Widget loginButtonArea = new Container(
-      margin: EdgeInsets.only(left: 20,right: 20),
+      margin: EdgeInsets.only(left: 20, right: 20),
       height: 45.0,
       child: new RaisedButton(
-        color: Colors.blue[300],
-        child: Text(
-          "登录",
-          // ignore: deprecated_member_use
-          style: Theme.of(context).primaryTextTheme.headline,
-        ),
-        // 设置按钮圆角
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-        onPressed: ()  async{
-          //点击登录按钮，解除焦点，回收键盘
-          _focusNodePassWord.unfocus();
-          _focusNodeUserName.unfocus();
-          if (_formKey.currentState.validate()) {
-            //只有输入通过验证，才会执行这里
-            _formKey.currentState.save();
-            if (_username == "admin" && _password == "123456") {
-//              SharedPreferences prefs = await SharedPreferences.getInstance();
+          color: Colors.blue[300],
+          child: Text(
+            "登录",
+            // ignore: deprecated_member_use
+            style: Theme.of(context).primaryTextTheme.headline,
+          ),
+          // 设置按钮圆角
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+          // ignore: missing_return
+          onPressed: () async {
+            //点击登录按钮，解除焦点，回收键盘
+            _focusNodePassWord.unfocus();
+            _focusNodeUserName.unfocus();
+            if (_formKey.currentState.validate()) {
+              //只有输入通过验证，才会执行这里
+              _formKey.currentState.save();
+              if (_username == "admin" && _password == "123456") {
+                String sucess = "登录成功 \n" + _username;
+                
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                prefs.setBool('status', true);
 
-//              prefs.setString('usename', _username);
-            String sucess = "登录成功 \n" + _username;
-            Navigator.of(context).
-              pushAndRemoveUntil(new MaterialPageRoute(builder: (
-              context) => new MyApp()),
-                    (route) => route == null);
-            return AlertDialog(
-              content: Text(sucess),
-            );
+                Navigator.of(context).pushAndRemoveUntil(
+                    new MaterialPageRoute(builder: (context) => new Tabs()
+                    ), (route) => route == null);
 
-
-
-
-
-//     _saveLoginMsg();
-          }
-        }}
-      ),
+                return AlertDialog(
+                  content: Text(sucess),
+                );
+              }
+            }
+          }),
     );
 
-    return  Container(
-
-   child: Scaffold(
+    return Container(
+        child: Scaffold(
       backgroundColor: Colors.white,
       body: new GestureDetector(
-        onTap: (){
-
+        onTap: () {
           _focusNodePassWord.unfocus();
           _focusNodeUserName.unfocus();
         },
         child: new ListView(
           children: <Widget>[
-            new SizedBox(height: 80,),
+            new SizedBox(
+              height: 80,
+            ),
             inputTextArea,
-            new SizedBox(height: 80,),
+            new SizedBox(
+              height: 80,
+            ),
             loginButtonArea,
-
           ],
         ),
       ),
     ));
   }
 }
-

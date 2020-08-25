@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'Home.dart';
-import 'Data.dart';
 import 'Chart.dart';
 
 class Tabs extends StatefulWidget {
