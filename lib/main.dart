@@ -4,21 +4,9 @@ import 'package:flutter/material.dart';
 import 'Login/LoginPager.dart';
 
 import 'Tabs.dart';
-//
-//void main() => runApp(new MyApp1());
-//Future<void> main() async {
-//  SharedPreferences prefs = await SharedPreferences.getInstance();
-//  var email = prefs.getString('usename');
-//  print(email);
-//  runApp(MaterialApp(home: email == null ? MyApp1() : MyApp()));}
-void main(){
-  String email = null;
-  if(email  ==   null){
-    runApp(new MyApp1());
-  }
-  else{
-    runApp(new MyApp());
-  }}
+
+void main() => runApp(new MyApp());
+
 
 //void main() {
 //  runApp(MyApp1());

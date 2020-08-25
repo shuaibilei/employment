@@ -8,25 +8,44 @@ import 'package:flutter/material.dart';
 import 'Data.dart';
 import 'asset.dart';
 import 'intentjson.dart';
-///////搜索结果//////
+
+/////搜索结果//////
 class searchResult extends StatefulWidget {
   String keyword;
   searchResult({Key key, this.keyword}) : super(key: key);
   _searchResultState createState() => _searchResultState();
 }
+
 class _searchResultState extends State<searchResult> {
   Intentjson list;
   String error;
   bool loading;
-  Future<Intentjson>Data()async{
-    items.add(widget.keyword);
-   final String word = widget.keyword;
-    var res= await http.get(
-        'http://thesecondclass.linaxhua.cn/api/Intention/queryBySno?sno=$word'
-    );
-    if(res.statusCode==200){
-      return Intentjson.fromJson(jsonDecode(res.body));
 
+
+
+  Future<Intentjson>searult()async{
+    Map<String,dynamic>param={
+      "keyword": widget.keyword,///传入的值
+      "academyId": 0,
+      "educationBackground": 0,
+      "majorId": 0,
+      "intentionalityCity": "string",
+      "intentionalityJob": 0,
+      "mixSalary": 0,
+      "maxSalary": 0,
+      "sort": 0,
+      "pageSize": 0,
+      "page": 0
+    };
+      final http.Response response =await http.put('http://thesecondclass.linaxhua.cn/api/Intention/query',
+          body:param,
+          encoding: Utf8Codec()
+      );
+      final Map<String, dynamic> responseData = json.decode(response.body);
+    print(responseData);
+
+    if(response.statusCode==200){
+      return Intentjson.fromJson(response.body);
     }else{
       Future.error("请求失败");
     }
@@ -37,44 +56,38 @@ class _searchResultState extends State<searchResult> {
     loading=true;
     // TODO: implement initState
     super.initState();
-    Data().then((v){
-      list= v  ;
+
+    searult().then((v){
+      list=v  ;
       loading=false;
+      error=false;
       setState(() {
       });
     }).catchError((e){
-error=e;
-loading=false;
-
+    error=true;
+    loading=false;
+    setState(() {
     });
-
-
+    });
+  }
+  void reset(){
+    loading=true;
+    error=false;
   }
 
   @override
   Widget build(BuildContext context) {
+  return loading ? Center(child: CircularProgressIndicator())
+      : ListView.separated(
+      itemCount: list.data.length,
+      itemBuilder: (context, index) {
+        return getItem(index);
 
-if(list.data!=null){
-    return loading?Center(child: CircularProgressIndicator())
-        :ListView.separated(
-        itemCount: list.data.length,
-        itemBuilder: (context, index) {
-          return getItem(index);
-        },
-        separatorBuilder: (BuildContext context, int index){
-          return Divider(color: Colors.blue);
-        }
-    );
-  }else{return ListView.separated(
-    itemCount: 0,
-    itemBuilder: (context, index) {
-      return getItem(index);
-    },
-    separatorBuilder: (BuildContext context, int index){
-      return Divider(color: Colors.blue);
-    }
-);
-}
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return Divider(color: Colors.blue);
+      }
+  );
   }
 
 
@@ -82,8 +95,7 @@ if(list.data!=null){
     return GestureDetector(
       child: Container(
 
-        child: loading?Center(child: CircularProgressIndicator())
-        :ListTile(
+        child: ListTile(
             title: Text(list.data[index].sname),
             subtitle: Text(list.data[index].company)
         ),
@@ -103,6 +115,7 @@ if(list.data!=null){
                       duration: Duration(milliseconds: 250),
                       curve: Curves.easeInOut,
                       child: ( InfoDialog(
+                        ////////传输数据到InfoDialog
                         keyword:List.generate(list.data.length, (index) => TransferDataEntity(list.data[index].sno.toString(),
                             list.data[index].sname,
                             list.data[index].status,
