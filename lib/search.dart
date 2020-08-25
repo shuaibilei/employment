@@ -1,8 +1,7 @@
 
 import 'dart:convert';
-
-import 'package:http/http.dart'as http;
 import 'package:dio/dio.dart';
+import 'package:http/http.dart'as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'Data.dart';
@@ -18,7 +17,7 @@ class searchResult extends StatefulWidget {
 
 class _searchResultState extends State<searchResult> {
   Intentjson list;
-  String error;
+  bool error;
   bool loading;
 
 
@@ -51,9 +50,10 @@ class _searchResultState extends State<searchResult> {
     }
   }
 
+
+
   @override
   void initState() {
-    loading=true;
     // TODO: implement initState
     super.initState();
 
@@ -193,6 +193,8 @@ class _SearchContentViewState extends State<SearchContentView> {
     );
   }
 }
+
+
 class SearchItemView extends StatefulWidget {
   @override
   _SearchItemViewState createState() => _SearchItemViewState();
@@ -240,55 +242,17 @@ class _SearchItemState extends State<SearchItem> {
   }
 }
 
-////////热词搜索///////////
+//Future<Intentjson>Data()async{
+//
+//  var res= await http.get(
+//      'http://thesecondclass.linaxhua.cn/api/Intention/queryBySno?sno=$word'
+//  );
+//  if(res.statusCode==200){
+//    print(jsonDecode(res.body)['data']);
+//    return Intentjson.fromJson(jsonDecode(res.body));
+//
+//  }else{
+//    Future.error("请求失败");
+//  }
+//}
 
-
-
-class hotSearch extends StatefulWidget {
-  hotSearch({Key key}) : super(key: key);
-
-  _hotSearchState createState() => _hotSearchState();
-}
-
-class _hotSearchState extends State<hotSearch> {
-List data=[];
-  getData() async {
-    Dio dio = new Dio();
-    Response res = await dio.get(
-//        'http://thesecondclass.linaxhua.cn/api/academy/findAll?page=1&pagesize=8'
-    'https://c.y.qq.com/splcloud/fcgi-bin/gethotkey.fcg?g_tk=5381&uin=0&notice=0&platform=h5&needNewCode=1&_=1513317614040'
-    );
-    var hotkey = json.decode(res.data)['data']['hotkey'];
-    print(hotkey);
-    setState(() {
-       data = hotkey;
-    });
-
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    this.getData();
-
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    print(data.length);
-    print('nihao');
-    print(data);
-    return ListView.separated(
-        itemCount: data.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(data[index]['k']),
-          );
-        },
-        separatorBuilder: (BuildContext context, int index){
-          return Divider(color: Colors.blue);
-        }
-    );
-  }
-}

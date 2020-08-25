@@ -1,8 +1,8 @@
 
+
 import 'package:employment/search.dart';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart'as http;
 
 import 'asset.dart';
 
@@ -50,7 +50,7 @@ class SearchBarView extends SearchDelegate<String> {
     );
   }
 
-///////搜索栏无输入时状态/////////////
+
   @override
   Widget buildSuggestions(BuildContext context) {
     // TODO: implement buildSuggestions
@@ -59,15 +59,11 @@ class SearchBarView extends SearchDelegate<String> {
         SearchContentView();
     }
     else {
-
       final suggestionList = searchList.where((input) =>
           input.startsWith(query)).toList();
-
-      ////////////TODO:将数据传入suggtion
-
       return ListView.builder(
         itemCount: suggestionList.length,
-        itemBuilder: (contex, index) =>
+        itemBuilder: (context, index) =>
             ListTile(
                 title: RichText(
                   text: TextSpan(
