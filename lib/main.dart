@@ -5,7 +5,7 @@ import 'Login/LoginPager.dart';
 
 import 'Tabs.dart';
 //
-void main() => runApp(new MyApp1());
+void main() => runApp(new MyApp());
 //Future<void> main() async {
 //  SharedPreferences prefs = await SharedPreferences.getInstance();
 //  var email = prefs.getString('usename');
