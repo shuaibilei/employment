@@ -5,8 +5,10 @@ class BarCard extends StatelessWidget {
   double widthOfCard;
   double heightOfCard;
   String category;
+  int count;
 
-  BarCard({this.widthOfCard, this.heightOfCard, this.category});
+
+  BarCard({this.widthOfCard, this.heightOfCard, this.category,this.count});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class BarCard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      "今年${category}人数同去年相比：",
+                      "今年$category人数同去年相比：",
                       style: TextStyle(
                           fontSize: 20, fontWeight: FontWeight.w700),
                     ),
@@ -45,7 +47,7 @@ class BarCard extends StatelessWidget {
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.only(bottom: 4.0),
-                            child: Text("今年：390人"),
+                            child: Text("今年：${count}人"),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(bottom: 10.0),
@@ -62,7 +64,7 @@ class BarCard extends StatelessWidget {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(bottom: 4.0),
-                            child: Text("去年：390人"),
+                            child: Text("去年：0人"),
                           ),
                           Container(
                             height: 30,

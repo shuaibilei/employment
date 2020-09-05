@@ -1,5 +1,9 @@
+import 'package:dio/dio.dart';
+import 'package:employment/Json/City.dart';
+import 'package:employment/count.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+
 
 class BarOfNumberAndYear {
   final int year;
@@ -36,14 +40,35 @@ class Chart extends StatefulWidget {
 
 class _ChartState extends State<Chart> with TickerProviderStateMixin {
   TabController _tabController;
-
+  Count list;
+ Future<Count> getData() async{
+   Dio dio = Dio();
+   Response res = await dio.get('http://thesecondclass.linaxhua.cn/api/Intention/intention');
+   print(1);
+  if (res.statusCode == 200) {
+    print(1);
+  return Count.fromJson(res.data);
+  } else {
+  Future.error("请求失败");
+  }
+}
   @override
   void initState() {
     super.initState();
+    this.getData();
+    getData().then((l){
+      list= l  ;
+      setState(() {
+      });
+    }).catchError((e){
+
+      setState(() {});
+    });
     _tabController = TabController(
       length: 2,
       vsync: this,
     );
+
   }
 
   @override
@@ -96,12 +121,12 @@ class _ChartState extends State<Chart> with TickerProviderStateMixin {
                   children: <Widget>[
                     Container(
                       child: BarChart(
-                        category: "就业",
+                        category: "就业",count:list.date[0].count
                       ),
                     ),
                     Container(
                       child: BarChart(
-                        category: "考研",
+                        category: "考研",count:list.date[2].count
                       ),
                     ),
                   ],
@@ -138,7 +163,7 @@ class _ChartState extends State<Chart> with TickerProviderStateMixin {
                                       fontSize: 20,
                                       fontWeight: FontWeight.w500,
                                     ),),
-                                    Text("700人",
+                                    Text((list?.date[0].count+list?.date[1].count+list?.date[2].count+list?.date[3].count).toString(),
                                     style: TextStyle(
                                       fontSize: 25,
                                       fontWeight: FontWeight.bold,
@@ -148,7 +173,9 @@ class _ChartState extends State<Chart> with TickerProviderStateMixin {
                                         fontSize: 20,
                                         fontWeight: FontWeight.w500,
                                       ),),
-                                    Text("543人",
+                                    Text(
+                                      (list?.date[0].count+list?.date[1].count+list?.date[2].count).toString(),
+
                                       style: TextStyle(
                                         fontSize: 25,
                                         fontWeight: FontWeight.bold,
@@ -192,7 +219,9 @@ class _ChartState extends State<Chart> with TickerProviderStateMixin {
                                               fontSize: 20,
                                               fontWeight: FontWeight.w500
                                           ),),
-                                        Text("2.3", style: TextStyle(
+                                        Text(
+                                          (list?.date[0].count/list?.date[2].count).toString()
+                                          , style: TextStyle(
                                           fontSize: 25,
                                           fontWeight: FontWeight.bold,
                                         ),),
@@ -225,7 +254,9 @@ class _ChartState extends State<Chart> with TickerProviderStateMixin {
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.w500
                                             ),),
-                                          Text("60%", style: TextStyle(
+                                          Text(
+                                            ((list?.date[0].count+list?.date[1].count+list?.date[2].count)/(list?.date[0].count+list?.date[1].count+list?.date[2].count+list?.date[3].count)).toString(),
+                                             style: TextStyle(
                                             fontSize: 25,
                                             fontWeight: FontWeight.bold,
                                           ),)
@@ -325,15 +356,16 @@ class _SliverPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
 
 class BarChart extends StatelessWidget {
   String category;
+  int count;
 
-  BarChart({this.category});
+  BarChart({this.category,this.count});
 
   final List<BarOfNumberAndYear> data = [
-    BarOfNumberAndYear(year: 2015, number: 300),
-    BarOfNumberAndYear(year: 2016, number: 320),
-    BarOfNumberAndYear(year: 2017, number: 350),
-    BarOfNumberAndYear(year: 2018, number: 400),
-    BarOfNumberAndYear(year: 2019, number: 390)
+    BarOfNumberAndYear(year: 2015, number: 0),
+    BarOfNumberAndYear(year: 2016, number: 0),
+    BarOfNumberAndYear(year: 2017, number: 0),
+    BarOfNumberAndYear(year: 2018, number: 0),
+    BarOfNumberAndYear(year: 2019, number: 20)
   ];
 
   _getSeriesData() {
@@ -367,7 +399,7 @@ class BarChart extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text("今年", style: TextStyle(color: Colors.grey)),
-                    Text("290人",
+                    Text("${count}",
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold)),
                     Text("2019年",
@@ -448,6 +480,8 @@ class DoubleHorizontalBarChart extends StatelessWidget {
 }
 
 class HorizontalBarChart extends StatelessWidget {
+
+
   final List<BarOfCityAndNumber> data = [
     BarOfCityAndNumber(city: "北京", number: 10),
     BarOfCityAndNumber(city: "上海", number: 8),
@@ -540,12 +574,15 @@ class PieChart extends StatelessWidget {
 /////////////////折线图//////////////////////
 
 class DoubleLineChart extends StatelessWidget {
+  int Count;
+  DoubleLineChart({this.Count});
+
   final List<BarOfNumberAndYear> data1 = [
     BarOfNumberAndYear(year: 2015, number: 300),
     BarOfNumberAndYear(year: 2016, number: 320),
     BarOfNumberAndYear(year: 2017, number: 350),
     BarOfNumberAndYear(year: 2018, number: 400),
-    BarOfNumberAndYear(year: 2019, number: 390)
+    BarOfNumberAndYear(year: 2019, number: 200)
   ];
   final List<BarOfNumberAndYear> data2 = [
     BarOfNumberAndYear(year: 2015, number: 310),

@@ -25,7 +25,6 @@ class _searchResultState extends State<searchResult> {
     items.add(widget.keyword);
     Map<String, dynamic> param = {
       "keyword": widget.keyword,
-
       ///传入的值
       "academyId": 0,
       "educationBackground": 0,
@@ -35,14 +34,11 @@ class _searchResultState extends State<searchResult> {
       "mixSalary": 0,
       "maxSalary": 0,
       "sort": 0,
-      "pageSize": 20,
+      "pageSize": 500,
       "page": 1
     };
     Dio dio = Dio();
     final Response response = await dio.put('http://thesecondclass.linaxhua.cn/api/Intention/query', data: param);
-//    final dynamic responseData = json.decode(response.data);
-
-
     if (response.statusCode == 200) {
       return Intentjson.fromJson(response.data);
     } else {

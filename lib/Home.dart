@@ -7,12 +7,44 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
+import 'Json/Future.dart';
+import 'count.dart';
+
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
+  Count list;
+  Future<Count> getData() async{
+    Dio dio = Dio();
+    Response res = await dio.get('http://thesecondclass.linaxhua.cn/api/Intention/intention');
+    print(1);
+    if (res.statusCode == 200) {
+      print(1);
+      return Count.fromJson(res.data);
+    } else {
+      Future.error("请求失败");
+    }
+  }
+  @override
+  void initState() {
+    super.initState();
+  this.getData();
+    getData().then((l){
+      list= l  ;
+      setState(() {
+      });
+    }).catchError((e){
+
+      setState(() {});
+    });
+
+
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -170,9 +202,9 @@ class _HomeState extends State<Home> {
                     child: Container(
                         child: Column(
                       children: <Widget>[
-                        Container(height: 200, child: DoubleLineChart()),
-                        BarCard(category: "就业"),
-                        BarCard(category: "考研")
+                        Container(height: 200, child: DoubleLineChart(Count: list?.date[0]?.count??"0",)),
+                        BarCard(category: "就业",count: list?.date[0]?.count??"0",),
+                        BarCard(category: "考研",count: list?.date[2]?.count??"0",)
                       ],
                     )),
                   ),
