@@ -11,7 +11,6 @@ class _Tabs extends State<Tabs> {
   int _currentIndex = 0;
   List _itemList = [
     Home(),
-//    Data(),
     Chart()
   ];
   @override

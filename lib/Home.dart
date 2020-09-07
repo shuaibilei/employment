@@ -202,9 +202,144 @@ class _HomeState extends State<Home> {
                     child: Container(
                         child: Column(
                       children: <Widget>[
-                        Container(height: 200, child: DoubleLineChart(Count: list?.date[0]?.count??"0",)),
-                        BarCard(category: "就业",count: list?.date[0]?.count??"0",),
-                        BarCard(category: "考研",count: list?.date[2]?.count??"0",)
+//                        Container(height: 200, child: DoubleLineChart(Count: list?.date[0]?.count??"0",)),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                height: 230,
+                                width: MediaQuery.of(context).size.width/2 - 16,
+                                child: Card(
+                                  color: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(20.0),
+                                    ),
+                                  ),
+                                  shadowColor: Colors.black,
+                                  elevation: 10,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text("毕业总人数：",
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w500,
+                                          ),),
+                                        Text((list?.date[0].count+list?.date[1].count+list?.date[2].count+list?.date[3].count).toString(),
+                                          style: TextStyle(
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.bold,
+                                          ),),
+                                        Text("已有方向人数：",
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w500,
+                                          ),),
+                                        Text(
+                                          (list?.date[0].count+list?.date[1].count+list?.date[2].count).toString(),
+
+                                          style: TextStyle(
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.bold,
+                                          ),),
+                                        Text("同去年同期相比：",
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w500,
+                                          ),),
+                                        Text("增长 7 人",
+                                          style: TextStyle(
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.bold,
+                                          ),),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Column(
+                                children: <Widget>[
+                                  Container(
+                                    height: 110,
+                                    width: MediaQuery.of(context).size.width/2 - 16,
+                                    child: Card(
+                                      color: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(20.0),
+                                        ),
+                                      ),
+                                      shadowColor: Colors.black,
+                                      elevation: 10,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Text("就业考研比例：",
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w500
+                                              ),),
+                                            Text(
+                                              (list?.date[0].count/list?.date[2].count).toStringAsFixed(2)
+                                              , style: TextStyle(
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.bold,
+                                            ),),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 10.0),
+                                    child: Container(
+                                      height: 110,
+                                      width: MediaQuery.of(context).size.width/2 - 16,
+                                      child: Card(
+                                        color: Colors.white,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(20.0),
+                                          ),
+                                        ),
+                                        shadowColor: Colors.black,
+                                        elevation: 10,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              Text("已确定方向占比：",
+                                                style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.w500
+                                                ),),
+                                              Text(
+                                                ((list?.date[0].count+list?.date[1].count+list?.date[2].count)/(list?.date[0].count+list?.date[1].count+list?.date[2].count+list?.date[3].count)).toStringAsFixed(2),
+                                                style: TextStyle(
+                                                  fontSize: 25,
+                                                  fontWeight: FontWeight.bold,
+                                                ),)
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        BarCard(category: "就业",count: list?.date[0]?.count??"0", count2: 300,),
+                        BarCard(category: "考研",count: list?.date[2]?.count??"0", count2: 200,),
                       ],
                     )),
                   ),

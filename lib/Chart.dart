@@ -41,17 +41,20 @@ class Chart extends StatefulWidget {
 class _ChartState extends State<Chart> with TickerProviderStateMixin {
   TabController _tabController;
   Count list;
- Future<Count> getData() async{
-   Dio dio = Dio();
-   Response res = await dio.get('http://thesecondclass.linaxhua.cn/api/Intention/intention');
-   print(1);
-  if (res.statusCode == 200) {
+
+  Future<Count> getData() async {
+    Dio dio = Dio();
+    Response res = await dio
+        .get('http://thesecondclass.linaxhua.cn/api/Intention/intention');
     print(1);
-  return Count.fromJson(res.data);
-  } else {
-  Future.error("请求失败");
+    if (res.statusCode == 200) {
+      print(1);
+      return Count.fromJson(res.data);
+    } else {
+      Future.error("请求失败");
+    }
   }
-}
+
   @override
   void initState() {
     super.initState();
@@ -136,141 +139,7 @@ class _ChartState extends State<Chart> with TickerProviderStateMixin {
                 padding: const EdgeInsets.only(top: 40.0),
                 child: Column(
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Container(
-                            height: 230,
-                            width: MediaQuery.of(context).size.width/2 - 16,
-                            child: Card(
-                              color: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(20.0),
-                                ),
-                              ),
-                              shadowColor: Colors.black,
-                              elevation: 10,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text("毕业总人数：",
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w500,
-                                    ),),
-                                    Text((list?.date[0].count+list?.date[1].count+list?.date[2].count+list?.date[3].count).toString(),
-                                    style: TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.bold,
-                                    ),),
-                                    Text("已有方向人数：",
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w500,
-                                      ),),
-                                    Text(
-                                      (list?.date[0].count+list?.date[1].count+list?.date[2].count).toString(),
 
-                                      style: TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold,
-                                      ),),
-                                    Text("同去年同期相比：",
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w500,
-                                      ),),
-                                    Text("增长 7 人",
-                                      style: TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold,
-                                      ),),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Column(
-                            children: <Widget>[
-                              Container(
-                                height: 110,
-                                width: MediaQuery.of(context).size.width/2 - 16,
-                                child: Card(
-                                  color: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(20.0),
-                                    ),
-                                  ),
-                                  shadowColor: Colors.black,
-                                  elevation: 10,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text("就业考研比例：",
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.w500
-                                          ),),
-                                        Text(
-                                          (list?.date[0].count/list?.date[2].count).toString()
-                                          , style: TextStyle(
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.bold,
-                                        ),),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 10.0),
-                                child: Container(
-                                  height: 110,
-                                  width: MediaQuery.of(context).size.width/2 - 16,
-                                  child: Card(
-                                    color: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(20.0),
-                                      ),
-                                    ),
-                                    shadowColor: Colors.black,
-                                    elevation: 10,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text("已确定方向占比：",
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w500
-                                            ),),
-                                          Text(
-                                            ((list?.date[0].count+list?.date[1].count+list?.date[2].count)/(list?.date[0].count+list?.date[1].count+list?.date[2].count+list?.date[3].count)).toString(),
-                                             style: TextStyle(
-                                            fontSize: 25,
-                                            fontWeight: FontWeight.bold,
-                                          ),)
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0, top: 40),
                       child: Align(
@@ -281,9 +150,12 @@ class _ChartState extends State<Chart> with TickerProviderStateMixin {
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           )),
                     ),
-                    Container(
-                      height: 250,
-                      child: DoubleHorizontalBarChart(),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        height: 250,
+                        child: DoubleHorizontalBarChart(),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0, top: 40),
@@ -295,9 +167,12 @@ class _ChartState extends State<Chart> with TickerProviderStateMixin {
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           )),
                     ),
-                    Container(
-                      height: 350,
-                      child: HorizontalBarChart(),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        height: 350,
+                        child: HorizontalBarChart(),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0, top: 40),
@@ -346,6 +221,7 @@ class _SliverPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
   @override
   double get minExtent => _tabBar.preferredSize.height;
 
+
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
     return false;
@@ -360,12 +236,16 @@ class BarChart extends StatelessWidget {
 
   BarChart({this.category,this.count});
 
-  final List<BarOfNumberAndYear> data = [
+
+  List<BarOfNumberAndYear> data = [
     BarOfNumberAndYear(year: 2015, number: 0),
     BarOfNumberAndYear(year: 2016, number: 0),
     BarOfNumberAndYear(year: 2017, number: 0),
     BarOfNumberAndYear(year: 2018, number: 0),
-    BarOfNumberAndYear(year: 2019, number: 20)
+    BarOfNumberAndYear(
+        year: 2019,
+        number: 20
+    )
   ];
 
   _getSeriesData() {

@@ -1,9 +1,5 @@
-
-
 import 'package:employment/search.dart';
-
 import 'package:flutter/material.dart';
-
 import 'asset.dart';
 
 class SearchBarView extends SearchDelegate<String> {
