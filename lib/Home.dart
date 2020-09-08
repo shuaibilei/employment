@@ -38,6 +38,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     int count = list?.data==null? 0 : (list.data[0]?.count??381);
+
     int count2 = list?.data==null? 0 : (list.data[2]?.count??143);
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
