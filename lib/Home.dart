@@ -225,6 +225,7 @@ class _HomeState extends State<Home> {
                                           style: TextStyle(
                                             fontSize: 20,
                                             fontWeight: FontWeight.w500,
+
                                           ),),
                                         Text((count+count1+count2+count3).toString(),
                                           style: TextStyle(
