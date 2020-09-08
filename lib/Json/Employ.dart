@@ -1,13 +1,15 @@
-class Count {
+class Employ {
   int code;
   String message;
+  int count;
   List<Data> data;
 
-  Count({this.code, this.message, this.data});
+  Employ({this.code, this.message, this.count, this.data});
 
-  Count.fromJson(Map<String, dynamic> json) {
+  Employ.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     message = json['message'];
+    count = json['count'];
     if (json['data'] != null) {
       data = new List<Data>();
       json['data'].forEach((v) {
@@ -20,6 +22,7 @@ class Count {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['code'] = this.code;
     data['message'] = this.message;
+    data['count'] = this.count;
     if (this.data != null) {
       data['data'] = this.data.map((v) => v.toJson()).toList();
     }
@@ -28,19 +31,19 @@ class Count {
 }
 
 class Data {
-  String employmentOrientation;
+  String intentionalityJob1;
   int count;
 
-  Data({this.employmentOrientation, this.count});
+  Data({this.intentionalityJob1, this.count});
 
   Data.fromJson(Map<String, dynamic> json) {
-    employmentOrientation = json['employmentOrientation'];
+    intentionalityJob1 = json['intentionality_job1'];
     count = json['count'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['employmentOrientation'] = this.employmentOrientation;
+    data['intentionality_job1'] = this.intentionalityJob1;
     data['count'] = this.count;
     return data;
   }

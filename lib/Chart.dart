@@ -81,10 +81,10 @@ class _ChartState extends State<Chart> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    int count = list?.date==null? 0 : (list.date[0]?.count??0);
-    int count1 = list?.date==null? 0 : (list.date[1]?.count??0);
-    int count2 = list?.date==null? 0 : (list.date[2]?.count??0);
-    int count3 = list?.date==null? 0 : (list.date[3]?.count??0);
+    int count = list?.data==null? 0 : (list.data[0]?.count??0);
+    int count1 = list?.data==null? 0 : (list.data[1]?.count??0);
+    int count2 = list?.data==null? 0 : (list.data[2]?.count??0);
+    int count3 = list?.data==null? 0 : (list.data[3]?.count??0);
     String city = list1?.data==null? "暂无" : (list1.data[0]?.intentionalityCity1??"暂无");
     String city1 = list1?.data==null? "暂无" : (list1.data[1]?.intentionalityCity1??"暂无");
     String city2 = list1?.data==null? "暂无" : (list1.data[2]?.intentionalityCity1??"暂无");

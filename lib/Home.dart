@@ -37,8 +37,8 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    int count = list?.date==null? 0 : (list.date[0]?.count??381);
-    int count2 = list?.date==null? 0 : (list.date[2]?.count??143);
+    int count = list?.data==null? 0 : (list.data[0]?.count??381);
+    int count2 = list?.data==null? 0 : (list.data[2]?.count??143);
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Container(
@@ -194,9 +194,9 @@ class _HomeState extends State<Home> {
                     child: Container(
                         child: Column(
                       children: <Widget>[
-                        Container(height: 200, child: DoubleLineChart(Count: 10,)),
-                        BarCard(category: "就业",count: 10,),
-                        BarCard(category: "考研",count: 10,)
+                        Container(height: 200, child: DoubleLineChart(Count: count,)),
+                        BarCard(category: "就业",count: count,),
+                        BarCard(category: "考研",count: count2,)
                       ],
                     )),
                   ),
