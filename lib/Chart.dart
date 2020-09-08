@@ -6,6 +6,13 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'Json/Future.dart';
 import 'future/Count.dart';
 
+class BarOfNumberAndYear {
+  final int year;
+  final int number;
+
+  BarOfNumberAndYear({this.year, this.number});
+}
+
 class EmploymentBarOfNumberAndYear {
   final int year;
   final int number;
@@ -211,6 +218,7 @@ class _ChartState extends State<Chart> with TickerProviderStateMixin {
                       child: Container(
                           height: 250,
                           child: JobBarChart()),
+                    ),
                     Container(
                       height: 350,
                       child: HorizontalBarChart(city1: city,num1:num,
@@ -223,22 +231,6 @@ class _ChartState extends State<Chart> with TickerProviderStateMixin {
                         city8: city7,num8:num7,
                         city9: city8,num9:num8,
                         city10: city9,num10:num9,),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0, top: 40),
-                      child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "大厂人数",
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          )),
-                    ),
-                    Container(
-                      height: 300,
-                      width: 330,
-                      child: Align(
-                          alignment: Alignment.centerRight, child: PieChart()),
                     ),
                   ],
                 ),
@@ -425,21 +417,20 @@ class HorizontalBarChart extends StatelessWidget {
   int num8;
   int num9;
   int num10;
-  HorizontalBarChart({this.city1,this.num1,this.city2,this.num2
-    ,this.city3,this.num3
-    ,this.city4,this.num4
-    ,this.city5,this.num5
-    ,this.city6,this.num6
-    ,this.city7,this.num7
-    ,this.city8,this.num8
-    ,this.city9,this.num9
-    ,this.city10,this.num10});
 
+  HorizontalBarChart({this.city1, this.num1, this.city2, this.num2
+    , this.city3, this.num3
+    , this.city4, this.num4
+    , this.city5, this.num5
+    , this.city6, this.num6
+    , this.city7, this.num7
+    , this.city8, this.num8
+    , this.city9, this.num9
+    , this.city10, this.num10});
 
 
   @override
   Widget build(BuildContext context) {
-
     final List<BarOfCityAndNumber> data = [
       BarOfCityAndNumber(city: city1, number: num1),
       BarOfCityAndNumber(city: city2, number: num2),
@@ -453,34 +444,34 @@ class HorizontalBarChart extends StatelessWidget {
       BarOfCityAndNumber(city: city10, number: num10),
     ];
 
-  _getSeriesData() {
-    List<charts.Series<BarOfCityAndNumber, String>> series = [
-      charts.Series(
-          id: "BarOfNumberAndYear",
-          data: data,
-          domainFn: (BarOfCityAndNumber series, _) => series.city.toString(),
-          measureFn: (BarOfCityAndNumber series, _) => series.number,
-          labelAccessorFn: (BarOfCityAndNumber series, _) =>
-              series.number.toString(),
-          colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault),
-    ];
-    return series;
+    _getSeriesData() {
+      List<charts.Series<BarOfCityAndNumber, String>> series = [
+        charts.Series(
+            id: "BarOfNumberAndYear",
+            data: data,
+            domainFn: (BarOfCityAndNumber series, _) => series.city.toString(),
+            measureFn: (BarOfCityAndNumber series, _) => series.number,
+            labelAccessorFn: (BarOfCityAndNumber series, _) =>
+                series.number.toString(),
+            colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault),
+      ];
+      return series;
+    }
+
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+          body: Container(
+            child: charts.BarChart(
+              _getSeriesData(),
+              animate: false,
+              barRendererDecorator: new charts.BarLabelDecorator(),
+            ),
+          ));
+    }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: Container(
-      child: charts.BarChart(
-        _getSeriesData(),
-        animate: false,
-        barRendererDecorator: new charts.BarLabelDecorator(),
-      ),
-    ));
-  }
 }
-
-
 ////////////职业柱状图//////////
 
 class JobBarChart extends StatelessWidget {
@@ -520,136 +511,3 @@ class JobBarChart extends StatelessWidget {
   }
 }
 
-
-////////////////饼图////////////////////////
-
-class PieChart extends StatelessWidget {
-  final List<PieOfCompanyAndNumber> data = [
-    PieOfCompanyAndNumber(company: "华为", number: 3),
-    PieOfCompanyAndNumber(company: "腾讯", number: 2),
-    PieOfCompanyAndNumber(company: "阿里", number: 1),
-    PieOfCompanyAndNumber(company: "字节跳动", number: 4),
-  ];
-
-  _getSeriesData() {
-    List<charts.Series<PieOfCompanyAndNumber, String>> series = [
-      charts.Series(
-        id: "BarOfNumberAndYear",
-        data: data,
-        domainFn: (PieOfCompanyAndNumber series, _) =>
-            series.company.toString(),
-        measureFn: (PieOfCompanyAndNumber series, _) => series.number,
-        labelAccessorFn: (PieOfCompanyAndNumber series, _) =>
-            '${series.company}:${series.number}人',
-        colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
-      )
-    ];
-    return series;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Container(
-            height: 200,
-            child: charts.PieChart(_getSeriesData(),
-                animate: true,
-//                defaultRenderer: new charts.ArcRendererConfig(arcRendererDecorators: [
-//                  new charts.ArcLabelDecorator(
-//                      labelPosition: charts.ArcLabelPosition.outside)
-//                ])
-                defaultRenderer: new charts.ArcRendererConfig(
-                    arcWidth: 60,
-                    arcRendererDecorators: [new charts.ArcLabelDecorator()])),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-/////////////////折线图//////////////////////
-
-//class DoubleLineChart extends StatelessWidget {
-//  int Count;
-//  DoubleLineChart({this.Count});
-//
-//  final List<BarOfNumberAndYear> data1 = [
-//    BarOfNumberAndYear(year: 2015, number: 300),
-//    BarOfNumberAndYear(year: 2016, number: 320),
-//    BarOfNumberAndYear(year: 2017, number: 350),
-//    BarOfNumberAndYear(year: 2018, number: 400),
-//    BarOfNumberAndYear(year: 2019, number: 200)
-//  ];
-//  final List<BarOfNumberAndYear> data2 = [
-//    BarOfNumberAndYear(year: 2015, number: 310),
-//    BarOfNumberAndYear(year: 2016, number: 360),
-//    BarOfNumberAndYear(year: 2017, number: 340),
-//    BarOfNumberAndYear(year: 2018, number: 410),
-//    BarOfNumberAndYear(year: 2019, number: 300)
-//  ];
-//
-//  final customTickFormatter = charts.BasicNumericTickFormatterSpec((num value) {
-//    return "${value}年";
-//  });
-//
-//  _getSeriesData() {
-//    List<charts.Series<BarOfNumberAndYear, int>> series = [
-//      charts.Series(
-//          id: "就业",
-//          data: data1,
-//          domainFn: (BarOfNumberAndYear series, _) => series.year,
-//          measureFn: (BarOfNumberAndYear series, _) => series.number,
-////          labelAccessorFn: (BarOfNumberAndYear series, _) =>
-////              series.number.toString(),
-//          colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault),
-//      charts.Series(
-//        id: "考研",
-//        data: data2,
-//        domainFn: (BarOfNumberAndYear series, _) => series.year,
-//        measureFn: (BarOfNumberAndYear series, _) => series.number,
-////          labelAccessorFn: (BarOfNumberAndYear series, _) =>
-////              series.number.toString(),
-//        colorFn: (_, __) => charts.MaterialPalette.deepOrange.shadeDefault,
-//      ),
-//    ];
-//    return series;
-//  }
-//
-//  @override
-//  Widget build(BuildContext context) {
-//    return Scaffold(
-//      body: Container(
-//        child: charts.LineChart(
-//          _getSeriesData(),
-//          animate: true,
-//          domainAxis: new charts.NumericAxisSpec(
-//            viewport: new charts.NumericExtents(2015, 2019),
-//            tickFormatterSpec: customTickFormatter,
-//          ),
-//          primaryMeasureAxis: new charts.NumericAxisSpec(
-//            viewport: new charts.NumericExtents(250.0, 450.0),
-//          ),
-//          behaviors: [
-//            new charts.SeriesLegend(
-//              // 图例位置 在左侧start 和右侧end
-//              position: charts.BehaviorPosition.end,
-//              // 图例条目  [horizo​​ntalFirst]设置为false，图例条目将首先作为新行而不是新列增长
-//              horizontalFirst: false,
-//              // 每个图例条目周围的填充Padding
-//              cellPadding: new EdgeInsets.only(right: 4.0, bottom: 4.0),
-//              // 显示度量
-//              showMeasures: true,
-//              // 度量格式
-//              measureFormatter: (num value) {
-//                return value == null ? '-' : '${value}人';
-//              },
-//            ),
-//          ],
-//        ),
-//      ),
-//    );
-//  }
-//}
