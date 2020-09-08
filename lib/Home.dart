@@ -7,8 +7,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
+
 import 'Json/Future.dart';
-import 'count.dart';
+import 'future/Count.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -17,21 +18,10 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   Count list;
-  Future<Count> getData() async{
-    Dio dio = Dio();
-    Response res = await dio.get('http://thesecondclass.linaxhua.cn/api/Intention/intention');
-    print(1);
-    if (res.statusCode == 200) {
-      print(1);
-      return Count.fromJson(res.data);
-    } else {
-      Future.error("请求失败");
-    }
-  }
   @override
   void initState() {
     super.initState();
-  this.getData();
+
     getData().then((l){
       list= l  ;
       setState(() {
@@ -47,10 +37,12 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    int count = list?.date==null? 0 : (list.date[0]?.count??381);
+    int count2 = list?.date==null? 0 : (list.date[2]?.count??143);
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Container(
-        height: 1300,
+        height: 1000,
         child: Stack(
           children: <Widget>[
             Container(
@@ -64,12 +56,11 @@ class _HomeState extends State<Home> {
                   )),
               child: Padding(
                 padding: const EdgeInsets.only(
-                    bottom: 100.0, right: 8, left: 8, top: 30),
+                    bottom: 100.0, right: 8, left: 8, top: 20),
                 child: Column(
                   children: <Widget>[
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Container(
                           height: 80,
@@ -105,15 +96,15 @@ class _HomeState extends State<Home> {
                                         ),
                                       );
                                     }),
-//                                decoration: BoxDecoration(
-//                                    color: Colors.white,
-//                                    borderRadius: BorderRadius.circular(30.0),
-//                                    boxShadow: [
-//                                      BoxShadow(
-//                                          color: Colors.grey,
-//                                          offset: Offset(0, 5),
-//                                          blurRadius: 20)
-//                                    ]),
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(30.0),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.grey,
+                                          offset: Offset(0, 5),
+                                          blurRadius: 20)
+                                    ]),
                               ),
                             ),
                             Container(
@@ -124,15 +115,15 @@ class _HomeState extends State<Home> {
                                         context: context,
                                         delegate: SearchBarView());
                                   }),
-//                              decoration: BoxDecoration(
-//                                  color: Colors.white,
-//                                  borderRadius: BorderRadius.circular(30.0),
-//                                  boxShadow: [
-//                                    BoxShadow(
-//                                        color: Colors.grey,
-//                                        offset: Offset(0, 5),
-//                                        blurRadius: 20)
-//                                  ]),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.grey,
+                                        offset: Offset(0, 5),
+                                        blurRadius: 20)
+                                  ]),
                             )
                           ],
                         ),
@@ -158,19 +149,19 @@ class _HomeState extends State<Home> {
                             height: 50,
                             child: Center(
                                 child: Text(
-                              "计算机与信息安全学院",
+                              "软件工程",
                               style: TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold),
                             )),
-//                            decoration: BoxDecoration(
-//                                color: Colors.white,
-//                                borderRadius: BorderRadius.all(Radius.circular(20)),
-//                                boxShadow: [
-//                                  BoxShadow(
-//                                      color: Colors.grey,
-//                                      offset: Offset(0, 5),
-//                                      blurRadius: 10)
-//                                ]),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(Radius.circular(20)),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      offset: Offset(0, 5),
+                                      blurRadius: 10)
+                                ]),
                           ),
                         ],
                       ),
@@ -182,7 +173,7 @@ class _HomeState extends State<Home> {
             Positioned(
               top: 200,
               child: Container(
-                height: 1400,
+                height: 900,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                     color: Colors.white,

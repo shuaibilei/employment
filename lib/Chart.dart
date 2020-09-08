@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:employment/Json/City.dart';
-import 'package:employment/count.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+
+import 'Json/Future.dart';
+import 'future/Count.dart';
 
 class EmploymentBarOfNumberAndYear {
   final int year;
@@ -54,34 +56,34 @@ class Chart extends StatefulWidget {
 class _ChartState extends State<Chart> with TickerProviderStateMixin {
   TabController _tabController;
   Count list;
+  City list1;
 
-  Future<Count> getData() async {
-    Dio dio = Dio();
-    Response res = await dio
-        .get('http://thesecondclass.linaxhua.cn/api/Intention/intention');
-    print(1);
-    if (res.statusCode == 200) {
-      print(1);
-      return Count.fromJson(res.data);
-    } else {
-      Future.error("请求失败");
-    }
-  }
 
   @override
   void initState() {
     super.initState();
-    this.getData();
-    getData().then((l) {
-      list = l;
+
+    getData().then((l){
+      list= l  ;
+      setState(() {
+      });
+    }).catchError((e){
+
       setState(() {});
-    }).catchError((e) {
+    });
+    getCity().then((v){
+      list1=v;
+      setState(() {
+      });
+    }).catchError((e){
+
       setState(() {});
     });
     _tabController = TabController(
       length: 2,
       vsync: this,
     );
+
   }
 
   @override
@@ -92,15 +94,31 @@ class _ChartState extends State<Chart> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-//    List workList = [
-//      "Android开发工程师",
-//      "Java开发工程师",
-//      "Python开发工程师",
-//      "前端开发工程师",
-//      "嵌入式开发工程师",
-//      "软件测试开发工程师",
-//    ];
-
+    int count = list?.date==null? 0 : (list.date[0]?.count??0);
+    int count1 = list?.date==null? 0 : (list.date[1]?.count??0);
+    int count2 = list?.date==null? 0 : (list.date[2]?.count??0);
+    int count3 = list?.date==null? 0 : (list.date[3]?.count??0);
+    String city = list1?.data==null? "暂无" : (list1.data[0]?.intentionalityCity1??"暂无");
+    String city1 = list1?.data==null? "暂无" : (list1.data[1]?.intentionalityCity1??"暂无");
+    String city2 = list1?.data==null? "暂无" : (list1.data[2]?.intentionalityCity1??"暂无");
+    String city3 = list1?.data==null? "暂无" : (list1.data[3]?.intentionalityCity1??"暂无");
+    String city4 = list1?.data==null? "暂无" : (list1.data[4]?.intentionalityCity1??"暂无");
+    String city5 = list1?.data==null? "暂无" : (list1.data[5]?.intentionalityCity1??"暂无");
+    String city6 = list1?.data==null? "暂无" : (list1.data[6]?.intentionalityCity1??"暂无");
+    String city7 = list1?.data==null? "暂无" : (list1.data[7]?.intentionalityCity1??"暂无");
+    String city8 = list1?.data==null? "暂无" : (list1.data[8]?.intentionalityCity1??"暂无");
+    String city9 = list1?.data==null? "暂无" : (list1.data[9]?.intentionalityCity1??"暂无");
+    String city10 = list1?.data==null? "暂无" : (list1.data[10]?.intentionalityCity1??"暂无");
+    int num = list1?.data==null? 0 : (list1.data[0]?.count??0);
+    int num1 = list1?.data==null? 0 : (list1.data[1]?.count??0);
+    int num2= list1?.data==null? 0 : (list1.data[2]?.count??0);
+    int num3 = list1?.data==null? 0 : (list1.data[3]?.count??0);
+    int num4 = list1?.data==null? 0 : (list1.data[4]?.count??0);
+    int num5 = list1?.data==null? 0 : (list1.data[5]?.count??0);
+    int num6 = list1?.data==null? 0 : (list1.data[6]?.count??0);
+    int num7 = list1?.data==null? 0 : (list1.data[7]?.count??0);
+    int num8 = list1?.data==null? 0 : (list1.data[8]?.count??0);
+    int num9 = list1?.data==null? 0 : (list1.data[9]?.count??0);
 
 
     return Scaffold(
@@ -144,12 +162,14 @@ class _ChartState extends State<Chart> with TickerProviderStateMixin {
                   controller: _tabController,
                   children: <Widget>[
                     Container(
-                      child:
-                          BarChart(category: "就业", count: 10),
+                      child: BarChart(
+                        category: "就业",count:count
+                      ),
                     ),
                     Container(
-                      child:
-                          BarChart(category: "考研", count: 20),
+                      child: BarChart(
+                        category: "考研",count:count2
+                      ),
                     ),
                   ],
                 ),
@@ -191,56 +211,34 @@ class _ChartState extends State<Chart> with TickerProviderStateMixin {
                       child: Container(
                           height: 250,
                           child: JobBarChart()),
+                    Container(
+                      height: 350,
+                      child: HorizontalBarChart(city1: city,num1:num,
+                        city2: city1,num2:num1,
+                        city3: city2,num3:num2,
+                        city4: city3,num4:num3,
+                        city5: city4,num5:num4,
+                        city6: city5,num6:num5,
+                        city7: city6,num7:num6,
+                        city8: city7,num8:num7,
+                        city9: city8,num9:num8,
+                        city10: city9,num10:num9,),
                     ),
-//                  Container(
-//                      height: 200,
-//                      child:  JobBarChart()
-//                  ),
-//                    Container(
-//                      child: Column(
-//                        children: <Widget>[
-//                          for (var item in workList)
-//                            Column(
-//                              crossAxisAlignment: CrossAxisAlignment.start,
-//                              children: <Widget>[
-//                                Text(item.toString()),
-//                                Row(
-//                                  children: <Widget>[
-//                                    Container(
-//                                      height: 30,
-//                                      width: 300,
-//                                      decoration: ShapeDecoration(
-//                                          color: Colors.blue,
-//                                          shape: new RoundedRectangleBorder(
-//                                            borderRadius: new BorderRadius.all(
-//                                                new Radius.circular(5.0)),
-//                                          )),
-//                                    ),
-//                                    Text("20人")
-//                                  ],
-//                                )
-//                              ],
-//                            ),
-
-//                        ],
-//                      ),
-//                    ),
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0, top: 40),
                       child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            "就业城市",
+                            "大厂人数",
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           )),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: 350,
-                        child: CityBarChart(),
-                      ),
+                    Container(
+                      height: 300,
+                      width: 330,
+                      child: Align(
+                          alignment: Alignment.centerRight, child: PieChart()),
                     ),
                   ],
                 ),
@@ -285,50 +283,24 @@ class BarChart extends StatelessWidget {
   String category;
   int count;
 
-  BarChart({this.category, this.count});
+  BarChart({this.category,this.count});
 
-  List<EmploymentBarOfNumberAndYear> data1 = [
-    EmploymentBarOfNumberAndYear(year: 2015, number: 0),
-    EmploymentBarOfNumberAndYear(year: 2016, number: 0),
-    EmploymentBarOfNumberAndYear(year: 2017, number: 0),
-    EmploymentBarOfNumberAndYear(year: 2018, number: 0),
-    EmploymentBarOfNumberAndYear(year: 2019, number: 20)
+  final List<BarOfNumberAndYear> data = [
+    BarOfNumberAndYear(year: 2015, number: 0),
+    BarOfNumberAndYear(year: 2016, number: 0),
+    BarOfNumberAndYear(year: 2017, number: 0),
+    BarOfNumberAndYear(year: 2018, number: 0),
+    BarOfNumberAndYear(year: 2019, number: 20)
   ];
 
-  List<StudyBarOfNumberAndYear> data2 = [
-    StudyBarOfNumberAndYear(year: 2015, number: 0),
-    StudyBarOfNumberAndYear(year: 2016, number: 0),
-    StudyBarOfNumberAndYear(year: 2017, number: 0),
-    StudyBarOfNumberAndYear(year: 2018, number: 0),
-    StudyBarOfNumberAndYear(year: 2019, number: 30)
-  ];
-
-  _getSeriesData1() {
-    List<charts.Series<EmploymentBarOfNumberAndYear, String>> series = [
+  _getSeriesData() {
+    List<charts.Series<BarOfNumberAndYear, String>> series = [
       charts.Series(
           id: "BarOfNumberAndYear",
-          data: data1,
-          domainFn: (EmploymentBarOfNumberAndYear series, _) =>
-              series.year.toString(),
-          measureFn: (EmploymentBarOfNumberAndYear series, _) => series.number,
-          labelAccessorFn: (EmploymentBarOfNumberAndYear series, _) =>
-              series.number.toString(),
-          colorFn: (_, __) => category == "就业"
-              ? charts.MaterialPalette.blue.shadeDefault
-              : charts.MaterialPalette.deepOrange.shadeDefault),
-    ];
-    return series;
-  }
-
-  _getSeriesData2() {
-    List<charts.Series<StudyBarOfNumberAndYear, String>> series = [
-      charts.Series(
-          id: "BarOfNumberAndYear",
-          data: data2,
-          domainFn: (StudyBarOfNumberAndYear series, _) =>
-              series.year.toString(),
-          measureFn: (StudyBarOfNumberAndYear series, _) => series.number,
-          labelAccessorFn: (StudyBarOfNumberAndYear series, _) =>
+          data: data,
+          domainFn: (BarOfNumberAndYear series, _) => series.year.toString(),
+          measureFn: (BarOfNumberAndYear series, _) => series.number,
+          labelAccessorFn: (BarOfNumberAndYear series, _) =>
               series.number.toString(),
           colorFn: (_, __) => category == "就业"
               ? charts.MaterialPalette.blue.shadeDefault
@@ -366,7 +338,7 @@ class BarChart extends StatelessWidget {
             height: 300,
             padding: EdgeInsets.only(left: 8, right: 8),
             child: charts.BarChart(
-              category == "就业" ? _getSeriesData1() : _getSeriesData2(),
+              _getSeriesData(),
               animate: true,
               barRendererDecorator: new charts.BarLabelDecorator(),
             ),
@@ -432,19 +404,54 @@ class DoubleHorizontalBarChart extends StatelessWidget {
   }
 }
 
-class CityBarChart extends StatelessWidget {
-  final List<BarOfCityAndNumber> data = [
-    BarOfCityAndNumber(city: "北京", number: 10),
-    BarOfCityAndNumber(city: "上海", number: 8),
-    BarOfCityAndNumber(city: "广东", number: 30),
-    BarOfCityAndNumber(city: "深圳", number: 20),
-    BarOfCityAndNumber(city: "珠海", number: 10),
-    BarOfCityAndNumber(city: "成都", number: 12),
-    BarOfCityAndNumber(city: "重庆", number: 6),
-    BarOfCityAndNumber(city: "杭州", number: 14),
-    BarOfCityAndNumber(city: "安徽", number: 9),
-    BarOfCityAndNumber(city: "沈阳", number: 10),
-  ];
+class HorizontalBarChart extends StatelessWidget {
+  String city1;
+  String city2;
+  String city3;
+  String city4;
+  String city5;
+  String city6;
+  String city7;
+  String city8;
+  String city9;
+  String city10;
+  int num1;
+  int num2;
+  int num3;
+  int num4;
+  int num5;
+  int num6;
+  int num7;
+  int num8;
+  int num9;
+  int num10;
+  HorizontalBarChart({this.city1,this.num1,this.city2,this.num2
+    ,this.city3,this.num3
+    ,this.city4,this.num4
+    ,this.city5,this.num5
+    ,this.city6,this.num6
+    ,this.city7,this.num7
+    ,this.city8,this.num8
+    ,this.city9,this.num9
+    ,this.city10,this.num10});
+
+
+
+  @override
+  Widget build(BuildContext context) {
+
+    final List<BarOfCityAndNumber> data = [
+      BarOfCityAndNumber(city: city1, number: num1),
+      BarOfCityAndNumber(city: city2, number: num2),
+      BarOfCityAndNumber(city: city3, number: num3),
+      BarOfCityAndNumber(city: city4, number: num4),
+      BarOfCityAndNumber(city: city5, number: num5),
+      BarOfCityAndNumber(city: city6, number: num6),
+      BarOfCityAndNumber(city: city7, number: num7),
+      BarOfCityAndNumber(city: city8, number: num8),
+      BarOfCityAndNumber(city: city9, number: num9),
+      BarOfCityAndNumber(city: city10, number: num10),
+    ];
 
   _getSeriesData() {
     List<charts.Series<BarOfCityAndNumber, String>> series = [
