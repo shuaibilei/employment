@@ -2,11 +2,7 @@ import 'dart:ui';
 import 'package:employment/Variable.dart';
 import 'package:flutter/material.dart';
 
-
-
-
 class TransferDataEntity {
-
   int _id;
   String _sno;
   String _sname;
@@ -29,19 +25,29 @@ class TransferDataEntity {
   int _salary;
   String _failedCourses;
 
-  int  _index;
+  int _index;
 
-
-  TransferDataEntity( this._sno,this._sname,this._status,this._intentionalityCity1,this._employmentOrientation,this._skill,this._location,this._company,this._index,this._intentionalityCity2,this._intentionalityCity3,this._intentionalityJob1,this._intentionalityJob2,this._intentionalityJob3);
-
+  TransferDataEntity(
+      this._sno,
+      this._sname,
+      this._status,
+      this._intentionalityCity1,
+      this._employmentOrientation,
+      this._skill,
+      this._location,
+      this._company,
+      this._index,
+      this._intentionalityCity2,
+      this._intentionalityCity3,
+      this._intentionalityJob1,
+      this._intentionalityJob2,
+      this._intentionalityJob3);
 }
+
 class InfoDialog extends StatefulWidget {
- final List<TransferDataEntity> keyword;
+  final List<TransferDataEntity> keyword;
 
   InfoDialog({Key key, @required this.keyword}) : super(key: key);
-
-
-
 
   @override
   _InfoDialogState createState() => _InfoDialogState();
@@ -54,9 +60,10 @@ class _InfoDialogState extends State<InfoDialog> {
 
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-    int n=widget.keyword[0]._index;
+    int n = widget.keyword[0]._index;
     return Stack(children: [
       Center(
         child: ClipRect(
@@ -87,8 +94,8 @@ class _InfoDialogState extends State<InfoDialog> {
             ],
           ),
           child: Container(
-            height: 300,
-            width: 300,
+            height: 350,
+            width: 350,
             decoration: ShapeDecoration(
                 color: Colors.white70,
                 shape: RoundedRectangleBorder(
@@ -130,7 +137,25 @@ class _InfoDialogState extends State<InfoDialog> {
                     ],
                   ),
                   Text(
-                   "意向目标："+ widget.keyword[n]._employmentOrientation,
+                    "意   向：" + widget.keyword[n]._employmentOrientation,
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black,
+                        decoration: TextDecoration.none,
+                        wordSpacing: 1),
+                  ),
+                  Text(
+                    "学   号：" + widget.keyword[n]._sno,
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black,
+                        decoration: TextDecoration.none,
+                        wordSpacing: 1),
+                  ),
+                  Text(
+                    "意向城市：" + widget.keyword[n]._intentionalityCity1,
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.normal,
@@ -138,56 +163,82 @@ class _InfoDialogState extends State<InfoDialog> {
                         decoration: TextDecoration.none),
                   ),
                   Text(
-                    "学号："+widget.keyword[n]._sno,
+                    "意向职业：" + widget.keyword[n]._intentionalityJob1,
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.normal,
                         color: Colors.black,
                         decoration: TextDecoration.none),
                   ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        "技   术：",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black,
+                          decoration: TextDecoration.none,
+                          wordSpacing: 1,
+                        ),
+                      ),
+                      Container(
+                        constraints: BoxConstraints(
+                          maxWidth: 240,
+                        ),
+                        child: Text(
+                          widget.keyword[n]._skill,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black,
+                            decoration: TextDecoration.none,
+                            wordSpacing: 1,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      )
+                    ],
+                  ),
                   Text(
-                    "意向地点："+widget.keyword[n]._intentionalityCity1+","
-                    +widget.keyword[n]._intentionalityCity2+","
-                    +widget.keyword[n]._intentionalityCity3,
+                    "当前城市：" + widget.keyword[n]._location,
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.normal,
                         color: Colors.black,
                         decoration: TextDecoration.none),
                   ),
-                  Text(
-                    "意向城市："+widget.keyword[n]._intentionalityJob1+","
-                        +widget.keyword[n]._intentionalityJob2+","
-                        +widget.keyword[n]._intentionalityJob3,
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.black,
-                        decoration: TextDecoration.none),
-                  ),
-                  Text(
-                    "技能："+widget.keyword[n]._skill,
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.black,
-                        decoration: TextDecoration.none),
-                  ),
-                  Text(
-                    "当前位置："+widget.keyword[n]._location,
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.black,
-                        decoration: TextDecoration.none),
-                  ),
-                  Text(
-                    "就业公司："+widget.keyword[n]._company,
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.black,
-                        decoration: TextDecoration.none),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        "就业公司：",
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black,
+                            decoration: TextDecoration.none),
+                      ),
+                      Container(
+                        constraints: BoxConstraints(
+                          maxWidth: 240,
+                        ),
+                        child: Text(
+                          widget.keyword[n]._company,
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.normal,
+                              color: Colors.black,
+                              decoration: TextDecoration.none),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

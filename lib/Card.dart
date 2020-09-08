@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 
-class BarCard extends StatelessWidget {
 
+class BarCard extends StatelessWidget {
   double widthOfCard;
   double heightOfCard;
   String category;
   int count;
+  int count2;
 
 
-  BarCard({this.widthOfCard, this.heightOfCard, this.category,this.count});
-
+  BarCard({this.widthOfCard, this.heightOfCard, this.category,this.count, this.count2});
   @override
   Widget build(BuildContext context) {
     return Container(
         margin: EdgeInsets.only(top: 40, bottom: 10),
         child: SizedBox(
           height: heightOfCard,
-          width: widthOfCard,
+          width: widthOfCard = MediaQuery.of(context).size.width - 16,
           child: Card(
             color: Colors.white70,
             shape: RoundedRectangleBorder(
@@ -53,7 +53,7 @@ class BarCard extends StatelessWidget {
                             padding: const EdgeInsets.only(bottom: 10.0),
                             child: Container(
                               height: 30,
-                              width: widthOfCard,
+                              width: count>count2 ? 300 : 300*(count/count2),
                               decoration: ShapeDecoration(
                                   color: category=="就业" ? Colors.blue : Colors.deepOrange,
                                   shape: new RoundedRectangleBorder(
@@ -64,16 +64,19 @@ class BarCard extends StatelessWidget {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(bottom: 4.0),
-                            child: Text("去年：0人"),
+                            child: Text("去年：${count2}人"),
                           ),
-                          Container(
-                            height: 30,
-                            width: 100,
-                            decoration: ShapeDecoration(
-                                color: Colors.grey,
-                                shape: new RoundedRectangleBorder(
-                                  borderRadius: new BorderRadius.all(new Radius.circular(5.0)),
-                                )
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 8.0),
+                            child: Container(
+                              height: 30,
+                              width: count<count2 ? 300 : 300*(count2/count),
+                              decoration: ShapeDecoration(
+                                  color: Colors.grey,
+                                  shape: new RoundedRectangleBorder(
+                                    borderRadius: new BorderRadius.all(new Radius.circular(5.0)),
+                                  )
+                              ),
                             ),
                           ),
                         ],
