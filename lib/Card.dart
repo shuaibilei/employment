@@ -5,11 +5,12 @@ class BarCard extends StatelessWidget {
   double widthOfCard;
   double heightOfCard;
   String category;
+  Color color;
   int count;
   int count2;
 
 
-  BarCard({this.widthOfCard, this.heightOfCard, this.category,this.count, this.count2});
+  BarCard({this.widthOfCard, this.heightOfCard, this.category,this.count, this.count2, this.color});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -53,9 +54,9 @@ class BarCard extends StatelessWidget {
                             padding: const EdgeInsets.only(bottom: 10.0),
                             child: Container(
                               height: 30,
-                              width: count>count2 ? 300 : 300*(count/count2),
+                              width: count>count2 ? MediaQuery.of(context).size.width - 48 : (MediaQuery.of(context).size.width - 48)*(count/count2),
                               decoration: ShapeDecoration(
-                                  color: category=="就业" ? Colors.blue : Colors.deepOrange,
+                                  color: color,
                                   shape: new RoundedRectangleBorder(
                                     borderRadius: new BorderRadius.all(new Radius.circular(5.0)),
                                   )
@@ -70,7 +71,7 @@ class BarCard extends StatelessWidget {
                             padding: const EdgeInsets.only(bottom: 8.0),
                             child: Container(
                               height: 30,
-                              width: count<count2 ? 300 : 300*(count2/count),
+                              width: count<count2 ? MediaQuery.of(context).size.width - 48 : (MediaQuery.of(context).size.width - 48)*(count2/count),
                               decoration: ShapeDecoration(
                                   color: Colors.grey,
                                   shape: new RoundedRectangleBorder(

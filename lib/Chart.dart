@@ -6,12 +6,25 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'Json/Future.dart';
 import 'future/Count.dart';
 
-
 class BarOfNumberAndYear {
   final int year;
   final int number;
 
   BarOfNumberAndYear({this.year, this.number});
+}
+
+class EmploymentBarOfNumberAndYear {
+  final int year;
+  final int number;
+
+  EmploymentBarOfNumberAndYear({this.year, this.number});
+}
+
+class StudyBarOfNumberAndYear {
+  final int year;
+  final int number;
+
+  StudyBarOfNumberAndYear({this.year, this.number});
 }
 
 class BarOfDirectionAndNumber {
@@ -26,6 +39,13 @@ class BarOfCityAndNumber {
   final int number;
 
   BarOfCityAndNumber({this.city, this.number});
+}
+
+class BarOfJobAndNumber{
+  final String job;
+  final int number;
+
+  BarOfJobAndNumber({this.job, this.number});
 }
 
 class PieOfCompanyAndNumber {
@@ -166,141 +186,6 @@ class _ChartState extends State<Chart> with TickerProviderStateMixin {
                 child: Column(
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Container(
-                            height: 230,
-                            width: MediaQuery.of(context).size.width/2 - 16,
-                            child: Card(
-                              color: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(20.0),
-                                ),
-                              ),
-                              shadowColor: Colors.black,
-                              elevation: 10,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text("毕业总人数：",
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w500,
-                                    ),),
-                                    Text((count+count1+count2+count3).toString(),
-                                    style: TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.bold,
-                                    ),),
-                                    Text("已有方向人数：",
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w500,
-                                      ),),
-                                    Text(
-                                      (count+count1+count2).toString(),
-
-                                      style: TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold,
-                                      ),),
-                                    Text("同去年同期相比：",
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w500,
-                                      ),),
-                                    Text("增长 7 人",
-                                      style: TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold,
-                                      ),),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Column(
-                            children: <Widget>[
-                              Container(
-                                height: 110,
-                                width: MediaQuery.of(context).size.width/2 - 16,
-                                child: Card(
-                                  color: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(20.0),
-                                    ),
-                                  ),
-                                  shadowColor: Colors.black,
-                                  elevation: 10,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text("就业考研比例：",
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.w500
-                                          ),),
-                                        Text(
-                                          (count/count2).toString()
-                                          , style: TextStyle(
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.bold,
-                                        ),),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 10.0),
-                                child: Container(
-                                  height: 110,
-                                  width: MediaQuery.of(context).size.width/2 - 16,
-                                  child: Card(
-                                    color: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(20.0),
-                                      ),
-                                    ),
-                                    shadowColor: Colors.black,
-                                    elevation: 10,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text("已确定方向占比：",
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w500
-                                            ),),
-                                          Text(
-                                            ((count+count1+count2)/(count+count1+count2+count3)).toString(),
-                                             style: TextStyle(
-                                            fontSize: 25,
-                                            fontWeight: FontWeight.bold,
-                                          ),)
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
                       padding: const EdgeInsets.only(left: 8.0, top: 40),
                       child: Align(
                           alignment: Alignment.centerLeft,
@@ -310,19 +195,29 @@ class _ChartState extends State<Chart> with TickerProviderStateMixin {
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           )),
                     ),
-                    Container(
-                      height: 250,
-                      child: DoubleHorizontalBarChart(),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        height: 250,
+                        child: DoubleHorizontalBarChart(),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0, top: 40),
                       child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            "就业城市",
+                            "职位",
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           )),
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                          height: 250,
+                          child: JobBarChart()),
                     ),
                     Container(
                       height: 350,
@@ -336,22 +231,6 @@ class _ChartState extends State<Chart> with TickerProviderStateMixin {
                         city8: city7,num8:num7,
                         city9: city8,num9:num8,
                         city10: city9,num10:num9,),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0, top: 40),
-                      child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "大厂人数",
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          )),
-                    ),
-                    Container(
-                      height: 300,
-                      width: 330,
-                      child: Align(
-                          alignment: Alignment.centerRight, child: PieChart()),
                     ),
                   ],
                 ),
@@ -538,21 +417,20 @@ class HorizontalBarChart extends StatelessWidget {
   int num8;
   int num9;
   int num10;
-  HorizontalBarChart({this.city1,this.num1,this.city2,this.num2
-    ,this.city3,this.num3
-    ,this.city4,this.num4
-    ,this.city5,this.num5
-    ,this.city6,this.num6
-    ,this.city7,this.num7
-    ,this.city8,this.num8
-    ,this.city9,this.num9
-    ,this.city10,this.num10});
 
+  HorizontalBarChart({this.city1, this.num1, this.city2, this.num2
+    , this.city3, this.num3
+    , this.city4, this.num4
+    , this.city5, this.num5
+    , this.city6, this.num6
+    , this.city7, this.num7
+    , this.city8, this.num8
+    , this.city9, this.num9
+    , this.city10, this.num10});
 
 
   @override
   Widget build(BuildContext context) {
-
     final List<BarOfCityAndNumber> data = [
       BarOfCityAndNumber(city: city1, number: num1),
       BarOfCityAndNumber(city: city2, number: num2),
@@ -579,146 +457,57 @@ class HorizontalBarChart extends StatelessWidget {
       ];
       return series;
     }
-    return Scaffold(
-        body: Container(
-      child: charts.BarChart(
-        _getSeriesData(),
-        animate: false,
-        barRendererDecorator: new charts.BarLabelDecorator(),
-      ),
-    ));
+
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+          body: Container(
+            child: charts.BarChart(
+              _getSeriesData(),
+              animate: false,
+              barRendererDecorator: new charts.BarLabelDecorator(),
+            ),
+          ));
+    }
   }
+
 }
+////////////职业柱状图//////////
 
-////////////////饼图////////////////////////
+class JobBarChart extends StatelessWidget {
 
-class PieChart extends StatelessWidget {
-  final List<PieOfCompanyAndNumber> data = [
-    PieOfCompanyAndNumber(company: "华为", number: 3),
-    PieOfCompanyAndNumber(company: "腾讯", number: 2),
-    PieOfCompanyAndNumber(company: "阿里", number: 1),
-    PieOfCompanyAndNumber(company: "字节跳动", number: 4),
+  final List<BarOfJobAndNumber> data = [
+    BarOfJobAndNumber(job: "Android开发工程师", number: 20),
+    BarOfJobAndNumber(job: "Python开发工程师", number: 10),
+    BarOfJobAndNumber(job: "Java开发工程师", number: 26),
   ];
 
-  _getSeriesData() {
-    List<charts.Series<PieOfCompanyAndNumber, String>> series = [
+  _getSeriesData(){
+    List<charts.Series<BarOfJobAndNumber, String>> series = [
       charts.Series(
-        id: "BarOfNumberAndYear",
+        id: "BarOfJobAndNumber",
         data: data,
-        domainFn: (PieOfCompanyAndNumber series, _) =>
-            series.company.toString(),
-        measureFn: (PieOfCompanyAndNumber series, _) => series.number,
-        labelAccessorFn: (PieOfCompanyAndNumber series, _) =>
-            '${series.company}:${series.number}人',
-        colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
+        domainFn: (BarOfJobAndNumber series, _) => series.job.toString(),
+        measureFn: (BarOfJobAndNumber series, _) => series.number,
+        labelAccessorFn: (BarOfJobAndNumber series, _) => '${series.job}：${series.number}人',
+          colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault
       )
     ];
     return series;
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Container(
-            height: 200,
-            child: charts.PieChart(_getSeriesData(),
-                animate: true,
-//                defaultRenderer: new charts.ArcRendererConfig(arcRendererDecorators: [
-//                  new charts.ArcLabelDecorator(
-//                      labelPosition: charts.ArcLabelPosition.outside)
-//                ])
-                defaultRenderer: new charts.ArcRendererConfig(
-                    arcWidth: 60,
-                    arcRendererDecorators: [new charts.ArcLabelDecorator()])),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-/////////////////折线图//////////////////////
-
-class DoubleLineChart extends StatelessWidget {
-  int Count;
-  DoubleLineChart({this.Count});
-
-  final List<BarOfNumberAndYear> data1 = [
-    BarOfNumberAndYear(year: 2015, number: 300),
-    BarOfNumberAndYear(year: 2016, number: 320),
-    BarOfNumberAndYear(year: 2017, number: 350),
-    BarOfNumberAndYear(year: 2018, number: 400),
-    BarOfNumberAndYear(year: 2019, number: 200)
-  ];
-  final List<BarOfNumberAndYear> data2 = [
-    BarOfNumberAndYear(year: 2015, number: 310),
-    BarOfNumberAndYear(year: 2016, number: 360),
-    BarOfNumberAndYear(year: 2017, number: 340),
-    BarOfNumberAndYear(year: 2018, number: 410),
-    BarOfNumberAndYear(year: 2019, number: 300)
-  ];
-
-  final customTickFormatter = charts.BasicNumericTickFormatterSpec((num value) {
-    return "${value}年";
-  });
-
-  _getSeriesData() {
-    List<charts.Series<BarOfNumberAndYear, int>> series = [
-      charts.Series(
-          id: "就业",
-          data: data1,
-          domainFn: (BarOfNumberAndYear series, _) => series.year,
-          measureFn: (BarOfNumberAndYear series, _) => series.number,
-//          labelAccessorFn: (BarOfNumberAndYear series, _) =>
-//              series.number.toString(),
-          colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault),
-      charts.Series(
-        id: "考研",
-        data: data2,
-        domainFn: (BarOfNumberAndYear series, _) => series.year,
-        measureFn: (BarOfNumberAndYear series, _) => series.number,
-//          labelAccessorFn: (BarOfNumberAndYear series, _) =>
-//              series.number.toString(),
-        colorFn: (_, __) => charts.MaterialPalette.deepOrange.shadeDefault,
-      ),
-    ];
-    return series;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        child: charts.LineChart(
+        child: charts.BarChart(
           _getSeriesData(),
-          animate: true,
-          domainAxis: new charts.NumericAxisSpec(
-            viewport: new charts.NumericExtents(2015, 2019),
-            tickFormatterSpec: customTickFormatter,
-          ),
-          primaryMeasureAxis: new charts.NumericAxisSpec(
-            viewport: new charts.NumericExtents(250.0, 450.0),
-          ),
-          behaviors: [
-            new charts.SeriesLegend(
-              // 图例位置 在左侧start 和右侧end
-              position: charts.BehaviorPosition.end,
-              // 图例条目  [horizo​​ntalFirst]设置为false，图例条目将首先作为新行而不是新列增长
-              horizontalFirst: false,
-              // 每个图例条目周围的填充Padding
-              cellPadding: new EdgeInsets.only(right: 4.0, bottom: 4.0),
-              // 显示度量
-              showMeasures: true,
-              // 度量格式
-              measureFormatter: (num value) {
-                return value == null ? '-' : '${value}人';
-              },
-            ),
-          ],
+          vertical: false,
+          barRendererDecorator: new charts.BarLabelDecorator<String>(),
+          domainAxis:
+          new charts.OrdinalAxisSpec(renderSpec: new charts.NoneRenderSpec()),
         ),
       ),
     );
   }
 }
+
