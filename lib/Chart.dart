@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:employment/Json/City.dart';
+import 'package:employment/Json/Employ.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
@@ -64,6 +65,7 @@ class _ChartState extends State<Chart> with TickerProviderStateMixin {
   TabController _tabController;
   Count list;
   City list1;
+  Employ listem;
 
 
   @override
@@ -86,6 +88,14 @@ class _ChartState extends State<Chart> with TickerProviderStateMixin {
 
       setState(() {});
     });
+    getemploy().then((v){
+      listem=v;
+      setState(() {
+      });
+    }).catchError((e){
+
+      setState(() {});
+    });
     _tabController = TabController(
       length: 2,
       vsync: this,
@@ -101,32 +111,43 @@ class _ChartState extends State<Chart> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    int count = list?.data==null? 0 : (list.data[0]?.count??0);
-    int count1 = list?.data==null? 0 : (list.data[1]?.count??0);
-    int count2 = list?.data==null? 0 : (list.data[2]?.count??0);
-    int count3 = list?.data==null? 0 : (list.data[3]?.count??0);
-    String city = list1?.data==null? "暂无" : (list1.data[0]?.intentionalityCity1??"暂无");
-    String city1 = list1?.data==null? "暂无" : (list1.data[1]?.intentionalityCity1??"暂无");
-    String city2 = list1?.data==null? "暂无" : (list1.data[2]?.intentionalityCity1??"暂无");
-    String city3 = list1?.data==null? "暂无" : (list1.data[3]?.intentionalityCity1??"暂无");
-    String city4 = list1?.data==null? "暂无" : (list1.data[4]?.intentionalityCity1??"暂无");
-    String city5 = list1?.data==null? "暂无" : (list1.data[5]?.intentionalityCity1??"暂无");
-    String city6 = list1?.data==null? "暂无" : (list1.data[6]?.intentionalityCity1??"暂无");
-    String city7 = list1?.data==null? "暂无" : (list1.data[7]?.intentionalityCity1??"暂无");
-    String city8 = list1?.data==null? "暂无" : (list1.data[8]?.intentionalityCity1??"暂无");
-    String city9 = list1?.data==null? "暂无" : (list1.data[9]?.intentionalityCity1??"暂无");
-    String city10 = list1?.data==null? "暂无" : (list1.data[10]?.intentionalityCity1??"暂无");
-    int num = list1?.data==null? 0 : (list1.data[0]?.count??0);
-    int num1 = list1?.data==null? 0 : (list1.data[1]?.count??0);
-    int num2= list1?.data==null? 0 : (list1.data[2]?.count??0);
-    int num3 = list1?.data==null? 0 : (list1.data[3]?.count??0);
-    int num4 = list1?.data==null? 0 : (list1.data[4]?.count??0);
-    int num5 = list1?.data==null? 0 : (list1.data[5]?.count??0);
-    int num6 = list1?.data==null? 0 : (list1.data[6]?.count??0);
-    int num7 = list1?.data==null? 0 : (list1.data[7]?.count??0);
-    int num8 = list1?.data==null? 0 : (list1.data[8]?.count??0);
-    int num9 = list1?.data==null? 0 : (list1.data[9]?.count??0);
-
+      int count = list?.data == null ? 0 : (list.data[0]?.count ?? 0);
+      int count1 = list?.data == null ? 0 : (list.data[1]?.count ?? 0);
+      int count2 = list?.data == null ? 0 : (list.data[2]?.count ?? 0);
+      int count3 = list?.data == null ? 0 : (list.data[3]?.count ?? 0);
+      String city = list1?.data == null ? "暂无" : (list1.data[0]?.intentionalityCity1 ?? "暂无");
+      String city1 = list1?.data == null ? "暂无" : (list1.data[1]?.intentionalityCity1 ?? "暂无");
+      String city2 = list1?.data == null ? "暂无" : (list1.data[2]?.intentionalityCity1 ?? "暂无");
+      String city3 = list1?.data == null ? "暂无" : (list1.data[3]?.intentionalityCity1 ?? "暂无");
+      String city4 = list1?.data == null ? "暂无" : (list1.data[4]?.intentionalityCity1 ?? "暂无");
+      String city5 = list1?.data == null ? "暂无" : (list1.data[5]?.intentionalityCity1 ?? "暂无");
+      String city6 = list1?.data == null ? "暂无" : (list1.data[6]?.intentionalityCity1 ?? "暂无");
+      String city7 = list1?.data == null ? "暂无" : (list1.data[7]?.intentionalityCity1 ?? "暂无");
+      String city8 = list1?.data == null ? "暂无" : (list1.data[8]?.intentionalityCity1 ?? "暂无");
+      String city9 = list1?.data == null ? "暂无" : (list1.data[9]?.intentionalityCity1 ?? "暂无");
+      String city10 = list1?.data == null ? "暂无" : (list1.data[10]?.intentionalityCity1 ?? "暂无");
+      int num = list1?.data == null ? 0 : (list1.data[0]?.count ?? 0);
+      int num1 = list1?.data == null ? 0 : (list1.data[1]?.count ?? 0);
+      int num2 = list1?.data == null ? 0 : (list1.data[2]?.count ?? 0);
+      int num3 = list1?.data == null ? 0 : (list1.data[3]?.count ?? 0);
+      int num4 = list1?.data == null ? 0 : (list1.data[4]?.count ?? 0);
+      int num5 = list1?.data == null ? 0 : (list1.data[5]?.count ?? 0);
+      int num6 = list1?.data == null ? 0 : (list1.data[6]?.count ?? 0);
+      int num7 = list1?.data == null ? 0 : (list1.data[7]?.count ?? 0);
+      int num8 = list1?.data == null ? 0 : (list1.data[8]?.count ?? 0);
+      int num9 = list1?.data == null ? 0 : (list1.data[9]?.count ?? 0);
+      String job1 = listem?.data == null ? "暂无" : (listem.data[1]?.intentionalityJob1 ?? "暂无");
+      String job2 = listem?.data == null ? "暂无" : (listem.data[2]?.intentionalityJob1 ?? "暂无");
+      String job3 = listem?.data == null ? "暂无" : (listem.data[3]?.intentionalityJob1 ?? "暂无");
+      String job4 = listem?.data == null ? "暂无" : (listem.data[4]?.intentionalityJob1 ?? "暂无");
+      String job5 = listem?.data == null ? "暂无" : (listem.data[5]?.intentionalityJob1 ?? "暂无");
+      String job6 = listem?.data == null ? "暂无" : (listem.data[6]?.intentionalityJob1 ?? "暂无");
+      int numem1 = listem?.data == null ? 0 : (listem.data[1]?.count ?? 0);
+      int numem2 = listem?.data == null ? 0 : (listem.data[2]?.count ?? 0);
+      int numem3 = listem?.data == null ? 0 : (listem.data[3]?.count ?? 0);
+      int numem4 = listem?.data == null ? 0 : (listem.data[4]?.count ?? 0);
+      int numem5 = listem?.data == null ? 0 : (listem.data[5]?.count ?? 0);
+      int numem6 = listem?.data == null ? 0 : (listem.data[6]?.count ?? 0);
 
     return Scaffold(
       body: NestedScrollView(
@@ -170,12 +191,12 @@ class _ChartState extends State<Chart> with TickerProviderStateMixin {
                   children: <Widget>[
                     Container(
                       child: BarChart(
-                        category: "就业",count:count
+                        category: "就业",countwork:count,
                       ),
                     ),
                     Container(
                       child: BarChart(
-                        category: "考研",count:count2
+                        category: "考研",countread: count2
                       ),
                     ),
                   ],
@@ -217,7 +238,12 @@ class _ChartState extends State<Chart> with TickerProviderStateMixin {
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
                           height: 250,
-                          child: JobBarChart()),
+                          child: JobBarChart(job1: job1,num1:numem1,
+                            job2: job2,num2:numem2,
+                            job3: job3,num3:numem3,
+                            job4: job4,num4:numem4,
+                            job5: job5,num5:numem5,
+                            job6: job6,num6:numem6,)),
                     ),
                     Container(
                       height: 350,
@@ -273,36 +299,45 @@ class _SliverPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
 
 class BarChart extends StatelessWidget {
   String category;
-  int count;
+  int countwork;
+  int countread;
 
-  BarChart({this.category,this.count});
+  BarChart({this.category,this.countwork,this.countread});
 
-  final List<BarOfNumberAndYear> data = [
-    BarOfNumberAndYear(year: 2015, number: 0),
-    BarOfNumberAndYear(year: 2016, number: 0),
-    BarOfNumberAndYear(year: 2017, number: 0),
-    BarOfNumberAndYear(year: 2018, number: 0),
-    BarOfNumberAndYear(year: 2019, number: 20)
-  ];
 
-  _getSeriesData() {
-    List<charts.Series<BarOfNumberAndYear, String>> series = [
-      charts.Series(
-          id: "BarOfNumberAndYear",
-          data: data,
-          domainFn: (BarOfNumberAndYear series, _) => series.year.toString(),
-          measureFn: (BarOfNumberAndYear series, _) => series.number,
-          labelAccessorFn: (BarOfNumberAndYear series, _) =>
-              series.number.toString(),
-          colorFn: (_, __) => category == "就业"
-              ? charts.MaterialPalette.blue.shadeDefault
-              : charts.MaterialPalette.deepOrange.shadeDefault),
-    ];
-    return series;
-  }
 
   @override
   Widget build(BuildContext context) {
+    final List<BarOfNumberAndYear> data1 = [
+      BarOfNumberAndYear(year: 2015, number: 0),
+      BarOfNumberAndYear(year: 2016, number: 0),
+      BarOfNumberAndYear(year: 2017, number: 0),
+      BarOfNumberAndYear(year: 2018, number: 0),
+      BarOfNumberAndYear(year: 2019, number: countwork)
+    ];
+    final List<BarOfNumberAndYear> data2 = [
+      BarOfNumberAndYear(year: 2015, number: 0),
+      BarOfNumberAndYear(year: 2016, number: 0),
+      BarOfNumberAndYear(year: 2017, number: 0),
+      BarOfNumberAndYear(year: 2018, number: 0),
+      BarOfNumberAndYear(year: 2019, number: countread)
+    ];
+
+    _getSeriesData() {
+      List<charts.Series<BarOfNumberAndYear, String>> series = [
+        charts.Series(
+            id: "BarOfNumberAndYear",
+            data: category=="就业"?data1:data2,
+            domainFn: (BarOfNumberAndYear series, _) => series.year.toString(),
+            measureFn: (BarOfNumberAndYear series, _) => series.number,
+            labelAccessorFn: (BarOfNumberAndYear series, _) =>
+                series.number.toString(),
+            colorFn: (_, __) => category == "就业"
+                ? charts.MaterialPalette.blue.shadeDefault
+                : charts.MaterialPalette.deepOrange.shadeDefault),
+      ];
+      return series;
+    }
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -316,7 +351,7 @@ class BarChart extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text("今年", style: TextStyle(color: Colors.grey)),
-                    Text("${count}",
+                    Text("${countwork}",
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold)),
                     Text("2019年",
@@ -475,28 +510,54 @@ class HorizontalBarChart extends StatelessWidget {
 ////////////职业柱状图//////////
 
 class JobBarChart extends StatelessWidget {
+  String job1;
+  String job2;
+  String job3;
+  String job4;
+  String job5;
+  String job6;
 
-  final List<BarOfJobAndNumber> data = [
-    BarOfJobAndNumber(job: "Android开发工程师", number: 20),
-    BarOfJobAndNumber(job: "Python开发工程师", number: 10),
-    BarOfJobAndNumber(job: "Java开发工程师", number: 26),
-  ];
+  int num1;
+  int num2;
+  int num3;
+  int num4;
+  int num5;
+  int num6;
 
-  _getSeriesData(){
-    List<charts.Series<BarOfJobAndNumber, String>> series = [
-      charts.Series(
-        id: "BarOfJobAndNumber",
-        data: data,
-        domainFn: (BarOfJobAndNumber series, _) => series.job.toString(),
-        measureFn: (BarOfJobAndNumber series, _) => series.number,
-        labelAccessorFn: (BarOfJobAndNumber series, _) => '${series.job}：${series.number}人',
-          colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault
-      )
-    ];
-    return series;
-  }
+
+  JobBarChart({this.job1, this.num1
+    , this.job2, this.num2
+    , this.job3, this.num3
+    , this.job4, this.num4
+    , this.job5, this.num5
+    , this.job6, this.num6
+});
+
+
   @override
   Widget build(BuildContext context) {
+    final List<BarOfJobAndNumber> data = [
+      BarOfJobAndNumber(job: job1, number: num1),
+      BarOfJobAndNumber(job: job2, number: num2),
+      BarOfJobAndNumber(job: job3, number: num3),
+      BarOfJobAndNumber(job: job4, number: num4),
+      BarOfJobAndNumber(job: job5, number: num5),
+      BarOfJobAndNumber(job: job6, number: num6),
+    ];
+
+    _getSeriesData(){
+      List<charts.Series<BarOfJobAndNumber, String>> series = [
+        charts.Series(
+            id: "BarOfJobAndNumber",
+            data: data,
+            domainFn: (BarOfJobAndNumber series, _) => series.job.toString(),
+            measureFn: (BarOfJobAndNumber series, _) => series.number,
+            labelAccessorFn: (BarOfJobAndNumber series, _) => '${series.job}：${series.number}人',
+            colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault
+        )
+      ];
+      return series;
+    }
     return Scaffold(
       body: Container(
         child: charts.BarChart(

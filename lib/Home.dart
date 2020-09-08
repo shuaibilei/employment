@@ -9,6 +9,7 @@ import 'package:dio/dio.dart';
 
 
 import 'Json/Future.dart';
+import 'Json/Time.dart';
 import 'future/Count.dart';
 
 class Home extends StatefulWidget {
@@ -18,6 +19,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   Count list;
+  Time listtime;
   @override
   void initState() {
     super.initState();
@@ -28,6 +30,13 @@ class _HomeState extends State<Home> {
       });
     }).catchError((e){
 
+      setState(() {});
+    });
+    geteTime().then((l){
+      listtime= l  ;
+      setState(() {
+      });
+    }).catchError((e){
       setState(() {});
     });
 
@@ -41,6 +50,9 @@ class _HomeState extends State<Home> {
     int count1 = list?.data==null? 0 : (list.data[1]?.count??0);
     int count2 = list?.data==null? 0 : (list.data[2]?.count??0);
     int count3 = list?.data==null? 0 : (list.data[3]?.count??0);
+    String year =listtime?.year??"0";
+    String month=listtime?.month??"0";
+    String day=listtime?.date??"0";
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Container(
@@ -132,9 +144,10 @@ class _HomeState extends State<Home> {
                       ],
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 0, top: 20),
+                      padding: const EdgeInsets.only(bottom: 100.0, right: 8, left: 8, top: 30),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Container(
                             height: 50,
@@ -142,29 +155,18 @@ class _HomeState extends State<Home> {
                             child: Align(
                               alignment: Alignment.bottomLeft,
                               child: (
-                                  Text("本数据于 2019 年 9 月更新")
+                                  Text("本数据于"+year+"年"+month+"月"+day+"更新")
                               ),
                             ),
                           ),
                           Container(
-                            width: 100,
-                            height: 50,
-                            child: Center(
-                                child: Text(
-                              "软件工程",
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
-                            )),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.all(Radius.circular(20)),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.grey,
-                                      offset: Offset(0, 5),
-                                      blurRadius: 10)
-                                ]),
-                          ),
+                            child: DropdownButton(
+                              items: <DropdownMenuItem<String>>[
+                                DropdownMenuItem(child: Text("计算机与信息安全"),),
+                                DropdownMenuItem(child: Text("机电"),),
+                              ],
+                              hint: Text("选择专业"),
+                            ),),
                         ],
                       ),
                     )
@@ -175,7 +177,7 @@ class _HomeState extends State<Home> {
             Positioned(
               top: 200,
               child: Container(
-                height: 900,
+                height: 1100,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                     color: Colors.white,
