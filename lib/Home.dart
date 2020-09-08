@@ -50,7 +50,7 @@ class _HomeState extends State<Home> {
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Container(
-        height: 1000,
+        height: 1300,
         child: Stack(
           children: <Widget>[
             Container(
@@ -64,11 +64,12 @@ class _HomeState extends State<Home> {
                   )),
               child: Padding(
                 padding: const EdgeInsets.only(
-                    bottom: 100.0, right: 8, left: 8, top: 20),
+                    bottom: 100.0, right: 8, left: 8, top: 30),
                 child: Column(
                   children: <Widget>[
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Container(
                           height: 80,
@@ -104,15 +105,15 @@ class _HomeState extends State<Home> {
                                         ),
                                       );
                                     }),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(30.0),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Colors.grey,
-                                          offset: Offset(0, 5),
-                                          blurRadius: 20)
-                                    ]),
+//                                decoration: BoxDecoration(
+//                                    color: Colors.white,
+//                                    borderRadius: BorderRadius.circular(30.0),
+//                                    boxShadow: [
+//                                      BoxShadow(
+//                                          color: Colors.grey,
+//                                          offset: Offset(0, 5),
+//                                          blurRadius: 20)
+//                                    ]),
                               ),
                             ),
                             Container(
@@ -123,15 +124,15 @@ class _HomeState extends State<Home> {
                                         context: context,
                                         delegate: SearchBarView());
                                   }),
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(30.0),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        offset: Offset(0, 5),
-                                        blurRadius: 20)
-                                  ]),
+//                              decoration: BoxDecoration(
+//                                  color: Colors.white,
+//                                  borderRadius: BorderRadius.circular(30.0),
+//                                  boxShadow: [
+//                                    BoxShadow(
+//                                        color: Colors.grey,
+//                                        offset: Offset(0, 5),
+//                                        blurRadius: 20)
+//                                  ]),
                             )
                           ],
                         ),
@@ -157,19 +158,19 @@ class _HomeState extends State<Home> {
                             height: 50,
                             child: Center(
                                 child: Text(
-                              "软件工程",
+                              "计算机与信息安全学院",
                               style: TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold),
                             )),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.all(Radius.circular(20)),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.grey,
-                                      offset: Offset(0, 5),
-                                      blurRadius: 10)
-                                ]),
+//                            decoration: BoxDecoration(
+//                                color: Colors.white,
+//                                borderRadius: BorderRadius.all(Radius.circular(20)),
+//                                boxShadow: [
+//                                  BoxShadow(
+//                                      color: Colors.grey,
+//                                      offset: Offset(0, 5),
+//                                      blurRadius: 10)
+//                                ]),
                           ),
                         ],
                       ),
@@ -181,7 +182,7 @@ class _HomeState extends State<Home> {
             Positioned(
               top: 200,
               child: Container(
-                height: 900,
+                height: 1400,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                     color: Colors.white,
@@ -338,8 +339,9 @@ class _HomeState extends State<Home> {
                             ],
                           ),
                         ),
-                        BarCard(category: "就业",count: list?.date[0]?.count??"0", count2: 300,),
-                        BarCard(category: "考研",count: list?.date[2]?.count??"0", count2: 200,),
+                        BarCard(category: "就业",count: list?.date[0]?.count??"0", count2: 300, color: Colors.blue,),
+                        BarCard(category: "考研",count: list?.date[2]?.count??"0", count2: 200, color: Colors.deepOrange,),
+                        BarCard(category: "考公",count: list?.date[1]?.count??"0", count2: 50, color: Colors.green,)
                       ],
                     )),
                   ),
