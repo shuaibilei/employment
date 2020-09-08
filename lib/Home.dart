@@ -37,8 +37,10 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    int count = list?.data==null? 0 : (list.data[0]?.count??381);
-    int count2 = list?.data==null? 0 : (list.data[2]?.count??143);
+    int count = list?.data==null? 0 : (list.data[0]?.count??0);
+    int count1 = list?.data==null? 0 : (list.data[1]?.count??0);
+    int count2 = list?.data==null? 0 : (list.data[2]?.count??0);
+    int count3 = list?.data==null? 0 : (list.data[3]?.count??0);
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Container(
@@ -222,7 +224,7 @@ class _HomeState extends State<Home> {
                                             fontSize: 20,
                                             fontWeight: FontWeight.w500,
                                           ),),
-                                        Text((list?.date[0].count+list?.date[1].count+list?.date[2].count+list?.date[3].count).toString(),
+                                        Text((count+count1+count2+count3).toString(),
                                           style: TextStyle(
                                             fontSize: 25,
                                             fontWeight: FontWeight.bold,
@@ -233,7 +235,7 @@ class _HomeState extends State<Home> {
                                             fontWeight: FontWeight.w500,
                                           ),),
                                         Text(
-                                          (list?.date[0].count+list?.date[1].count+list?.date[2].count).toString(),
+                                          (count+count1+count2).toString(),
 
                                           style: TextStyle(
                                             fontSize: 25,
@@ -279,7 +281,7 @@ class _HomeState extends State<Home> {
                                                   fontWeight: FontWeight.w500
                                               ),),
                                             Text(
-                                              (list?.date[0].count/list?.date[2].count).toStringAsFixed(2)
+                                              (count/count2).toStringAsFixed(2)
                                               , style: TextStyle(
                                               fontSize: 25,
                                               fontWeight: FontWeight.bold,
@@ -314,7 +316,7 @@ class _HomeState extends State<Home> {
                                                     fontWeight: FontWeight.w500
                                                 ),),
                                               Text(
-                                                ((list?.date[0].count+list?.date[1].count+list?.date[2].count)/(list?.date[0].count+list?.date[1].count+list?.date[2].count+list?.date[3].count)).toStringAsFixed(2),
+                                                ((count+count1+count2)/(count+count1+count2+count3)).toStringAsFixed(2),
                                                 style: TextStyle(
                                                   fontSize: 25,
                                                   fontWeight: FontWeight.bold,
@@ -330,9 +332,9 @@ class _HomeState extends State<Home> {
                             ],
                           ),
                         ),
-                        BarCard(category: "就业",count: list?.date[0]?.count??"0", count2: 300, color: Colors.blue,),
-                        BarCard(category: "考研",count: list?.date[2]?.count??"0", count2: 200, color: Colors.deepOrange,),
-                        BarCard(category: "考公",count: list?.date[1]?.count??"0", count2: 50, color: Colors.green,)
+                        BarCard(category: "就业",count: count, count2: 300, color: Colors.blue,),
+                        BarCard(category: "考研",count: count2, count2: 200, color: Colors.deepOrange,),
+                        BarCard(category: "考公",count: count1, count2: 50, color: Colors.green,)
                       ],
                     )),
                   ),

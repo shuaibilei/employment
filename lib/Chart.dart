@@ -458,8 +458,8 @@ class HorizontalBarChart extends StatelessWidget {
       return series;
     }
 
-    @override
-    Widget build(BuildContext context) {
+//    @override
+//    Widget build(BuildContext context) {
       return Scaffold(
           body: Container(
             child: charts.BarChart(
@@ -468,7 +468,7 @@ class HorizontalBarChart extends StatelessWidget {
               barRendererDecorator: new charts.BarLabelDecorator(),
             ),
           ));
-    }
+//    }
   }
 
 }
