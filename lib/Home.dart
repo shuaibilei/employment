@@ -7,8 +7,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
+
 import 'Json/Future.dart';
-import 'count.dart';
+import 'future/Count.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -17,21 +18,10 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   Count list;
-  Future<Count> getData() async{
-    Dio dio = Dio();
-    Response res = await dio.get('http://thesecondclass.linaxhua.cn/api/Intention/intention');
-    print(1);
-    if (res.statusCode == 200) {
-      print(1);
-      return Count.fromJson(res.data);
-    } else {
-      Future.error("请求失败");
-    }
-  }
   @override
   void initState() {
     super.initState();
-  this.getData();
+
     getData().then((l){
       list= l  ;
       setState(() {
@@ -47,9 +37,8 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    int count = list?.date==null? 0 : (list.date[0]?.count??0);
-    int count1 = list?.date==null? 0 : (list.date[0]?.count??0);
-    int count2 = list?.date==null? 0 : (list.date[2]?.count??0);
+    int count = list?.date==null? 0 : (list.date[0]?.count??381);
+    int count2 = list?.date==null? 0 : (list.date[2]?.count??143);
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Container(
@@ -205,9 +194,9 @@ class _HomeState extends State<Home> {
                     child: Container(
                         child: Column(
                       children: <Widget>[
-                        Container(height: 200, child: DoubleLineChart(Count: count,)),
-                        BarCard(category: "就业",count: count1,),
-                        BarCard(category: "考研",count: count2,)
+                        Container(height: 200, child: DoubleLineChart(Count: 10,)),
+                        BarCard(category: "就业",count: 10,),
+                        BarCard(category: "考研",count: 10,)
                       ],
                     )),
                   ),

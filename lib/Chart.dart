@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:employment/Json/City.dart';
-import 'package:employment/count.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+
+import 'Json/Future.dart';
+import 'future/Count.dart';
 
 
 class BarOfNumberAndYear {
@@ -42,33 +44,12 @@ class _ChartState extends State<Chart> with TickerProviderStateMixin {
   TabController _tabController;
   Count list;
   City list1;
- Future<Count> getData() async{
-   Dio dio = Dio();
-   Response res = await dio.get('http://thesecondclass.linaxhua.cn/api/Intention/intention');
-   print(1);
-  if (res.statusCode == 200) {
-    print(1);
-  return Count.fromJson(res.data);
-  } else {
-  Future.error("请求失败");
-  }
-}
-Future<City> getCity() async{
-    Dio dio = Dio();
-    Response res = await dio.get('http://thesecondclass.linaxhua.cn/api/Intention/city?grade=17&academyNum=003&majorId=0&mark=0&order=1');
-    print(1);
-    if (res.statusCode == 200) {
-      print(1);
-      return City.fromJson(res.data);
-    } else {
-      Future.error("请求失败");
-    }
-  }
+
 
   @override
   void initState() {
     super.initState();
-    this.getData();
+
     getData().then((l){
       list= l  ;
       setState(() {
@@ -101,7 +82,7 @@ Future<City> getCity() async{
   @override
   Widget build(BuildContext context) {
     int count = list?.date==null? 0 : (list.date[0]?.count??0);
-    int count1 = list?.date==null? 0 : (list.date[0]?.count??0);
+    int count1 = list?.date==null? 0 : (list.date[1]?.count??0);
     int count2 = list?.date==null? 0 : (list.date[2]?.count??0);
     int count3 = list?.date==null? 0 : (list.date[3]?.count??0);
     String city = list1?.data==null? "暂无" : (list1.data[0]?.intentionalityCity1??"暂无");
