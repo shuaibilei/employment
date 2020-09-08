@@ -277,7 +277,7 @@ class BarChart extends StatelessWidget {
 
   BarChart({this.category,this.count});
 
-  final List<BarOfNumberAndYear> data = [
+  final List<BarOfNumberAndYear> data1 = [
     BarOfNumberAndYear(year: 2015, number: 0),
     BarOfNumberAndYear(year: 2016, number: 0),
     BarOfNumberAndYear(year: 2017, number: 0),
@@ -285,11 +285,19 @@ class BarChart extends StatelessWidget {
     BarOfNumberAndYear(year: 2019, number: 20)
   ];
 
+  final List<BarOfNumberAndYear> data2 = [
+    BarOfNumberAndYear(year: 2015, number: 0),
+    BarOfNumberAndYear(year: 2016, number: 0),
+    BarOfNumberAndYear(year: 2017, number: 0),
+    BarOfNumberAndYear(year: 2018, number: 0),
+    BarOfNumberAndYear(year: 2019, number: 10)
+  ];
+
   _getSeriesData() {
     List<charts.Series<BarOfNumberAndYear, String>> series = [
       charts.Series(
           id: "BarOfNumberAndYear",
-          data: data,
+          data: category == "就业" ? data1 : data2,
           domainFn: (BarOfNumberAndYear series, _) => series.year.toString(),
           measureFn: (BarOfNumberAndYear series, _) => series.number,
           labelAccessorFn: (BarOfNumberAndYear series, _) =>

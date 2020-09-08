@@ -44,12 +44,13 @@ class _HomeState extends State<Home> {
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Container(
-        height: 1000,
+        //下层高度
+        height: 1300,
         child: Stack(
           children: <Widget>[
             Container(
               width: MediaQuery.of(context).size.width,
-              height: 500,
+              height: 1000,
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -58,11 +59,12 @@ class _HomeState extends State<Home> {
                   )),
               child: Padding(
                 padding: const EdgeInsets.only(
-                    bottom: 100.0, right: 8, left: 8, top: 20),
+                    bottom: 100.0, right: 8, left: 8, top: 30),
                 child: Column(
                   children: <Widget>[
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Container(
                           height: 80,
@@ -98,15 +100,7 @@ class _HomeState extends State<Home> {
                                         ),
                                       );
                                     }),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(30.0),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Colors.grey,
-                                          offset: Offset(0, 5),
-                                          blurRadius: 20)
-                                    ]),
+
                               ),
                             ),
                             Container(
@@ -117,15 +111,7 @@ class _HomeState extends State<Home> {
                                         context: context,
                                         delegate: SearchBarView());
                                   }),
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(30.0),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        offset: Offset(0, 5),
-                                        blurRadius: 20)
-                                  ]),
+
                             )
                           ],
                         ),
@@ -147,23 +133,13 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                           Container(
-                            width: 100,
-                            height: 50,
-                            child: Center(
-                                child: Text(
-                              "软件工程",
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
-                            )),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.all(Radius.circular(20)),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.grey,
-                                      offset: Offset(0, 5),
-                                      blurRadius: 10)
-                                ]),
+                            child: DropdownButton(
+                              items: <DropdownMenuItem<String>>[
+                                DropdownMenuItem(child: Text("计算机与信息安全"),),
+                                DropdownMenuItem(child: Text("机电"),),
+                              ],
+                              hint: Text("选择专业"),
+                            ),
                           ),
                         ],
                       ),
@@ -175,7 +151,8 @@ class _HomeState extends State<Home> {
             Positioned(
               top: 200,
               child: Container(
-                height: 900,
+                //上层高度
+                height: 1100,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                     color: Colors.white,
