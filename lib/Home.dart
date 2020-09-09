@@ -7,8 +7,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
+
 import 'Json/Future.dart';
 import 'Variable.dart';
+import 'Json/Time.dart';
 import 'future/Count.dart';
 
 class Home extends StatefulWidget {
@@ -18,26 +20,37 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   Count list;
-
+  Time listtime;
   @override
   void initState() {
     super.initState();
 
-    getData().then((l) {
-      list = l;
+    getData().then((l){
+      list= l  ;
+      setState(() {
+      });
+    }).catchError((e){
+
       setState(() {});
-    }).catchError((e) {
+    });
+    geteTime().then((l){
+      listtime= l  ;
+      setState(() {
+      });
+    }).catchError((e){
       setState(() {});
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    int count = list?.data == null ? 0 : (list.data[0]?.count ?? 0);
-    int count1 = list?.data == null ? 0 : (list.data[1]?.count ?? 0);
-    int count2 = list?.data == null ? 0 : (list.data[2]?.count ?? 0);
-    int count3 = list?.data == null ? 0 : (list.data[3]?.count ?? 0);
-
+    int count = list?.data==null? 0 : (list.data[0]?.count??0);
+    int count1 = list?.data==null? 0 : (list.data[1]?.count??0);
+    int count2 = list?.data==null? 0 : (list.data[2]?.count??0);
+    int count3 = list?.data==null? 0 : (list.data[3]?.count??0);
+    String year =listtime?.year??"0";
+    String month=listtime?.month??"0";
+    String day=listtime?.date??"0";
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Container(

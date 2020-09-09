@@ -6,16 +6,17 @@ class Employ {
 
   Employ({this.code, this.message, this.count, this.data});
 
-  Employ.fromJson(Map<String, dynamic> json) {
-    code = json['code'];
-    message = json['message'];
-    count = json['count'];
-    if (json['data'] != null) {
-      data = new List<Data>();
-      json['data'].forEach((v) {
-        data.add(new Data.fromJson(v));
-      });
-    }
+ factory Employ.fromJson(Map<String, dynamic> json) {
+    var accJson=json["data"]as List;
+    List<Data>accList=accJson.map((i)=>Data.fromJson(i)).toList();
+
+    accList.sort((b,a){
+      return a.count.compareTo(b.count);
+    });
+    return Employ(
+        data: accList
+    );
+
   }
 
   Map<String, dynamic> toJson() {

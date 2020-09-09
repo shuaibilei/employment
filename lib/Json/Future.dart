@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:employment/Json/Employ.dart';
 import 'package:employment/future/Count.dart';
 import 'City.dart';
+import 'Time.dart';
 
 
 
@@ -34,6 +35,17 @@ Future<Employ> getemploy() async{
   if (res.statusCode == 200) {
     print(1);
     return Employ.fromJson(res.data);
+  } else {
+    Future.error("请求失败");
+  }
+}
+Future<Time> geteTime() async{
+  Dio dio = Dio();
+  Response res = await dio.get('http://thesecondclass.linaxhua.cn/api/Intention/getTime');
+  print(1);
+  if (res.statusCode == 200) {
+    print(1);
+    return Time.fromJson(res.data);
   } else {
     Future.error("请求失败");
   }
