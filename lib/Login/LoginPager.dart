@@ -1,6 +1,6 @@
 import 'package:employment/Tabs.dart';
 import 'package:flutter/material.dart';
-//import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -175,8 +175,8 @@ class _LoginPageState extends State<LoginPage> {
               if (_username == "admin" && _password == "123456") {
                 String sucess = "登录成功 \n" + _username;
                 
-//                SharedPreferences prefs = await SharedPreferences.getInstance();
-//                prefs.setBool('status', true);
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                prefs.setBool('status', true);
 
                 Navigator.of(context).pushAndRemoveUntil(
                     new MaterialPageRoute(builder: (context) => new Tabs()
@@ -185,6 +185,9 @@ class _LoginPageState extends State<LoginPage> {
                 return AlertDialog(
                   content: Text(sucess),
                 );
+              }
+              else{
+                print("登录失败");
               }
             }
           }),
