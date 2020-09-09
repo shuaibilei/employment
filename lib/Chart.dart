@@ -351,7 +351,9 @@ class BarChart extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text("今年", style: TextStyle(color: Colors.grey)),
-                    Text("${countwork}",
+                    category == "就业" ? Text("${countwork}",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold)) : Text("${countread}",
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold)),
                     Text("2019年",
