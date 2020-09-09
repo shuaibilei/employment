@@ -7,6 +7,14 @@ import 'Data.dart';
 import 'asset.dart';
 import 'intentjson.dart';
 
+var searchClass = [
+  "学号",
+  "姓名",
+  "学院",
+  "意向城市",
+  "意向职业"
+];
+
 /////搜索结果//////
 class searchResult extends StatefulWidget {
   String keyword;
@@ -147,46 +155,105 @@ class _SearchContentViewState extends State<SearchContentView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          new Row(
-            children: [
-              Text('历史记录', style: TextStyle(fontSize: 16)),
-              IconButton(
-                icon: Icon(
-                  Icons.delete_outline,
-                  color: Colors.grey,
+          Container(
+//            height: 100,
+            width: double.infinity,
+//            color: Colors.blue,
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text("指定内容搜索",
+                    style: TextStyle(
+                      color: Colors.grey[400]
+                    ),
+                  ),
                 ),
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          content: Text(
-                            "确定清空全部历史记录？",
+                Container(
+                  width: 250,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                    children: <Widget>[
+                      for(var i = 0; i < searchClass.length; i++)
+                        if(i<3)
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(searchClass[i],
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.blueAccent
                           ),
-                          actions: <Widget>[
-                            FlatButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: Text('取消'),
-                              textColor: Colors.red,
-                            ),
-                            FlatButton(
-                              onPressed: () {
-                                items.clear();
-                                Navigator.of(context).pop();
-                              },
-                              child: Text('清空'),
-                              textColor: Colors.red,
-                            ),
-                          ],
-                        );
-                      });
-                },
-              )
-            ],
+                        ),
+                      ),
+
+                    ],
+
+                  ),
+                ),
+
+                Container(
+                  width: 250,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      for(var i = 0; i < searchClass.length; i++)
+                        if(i>=3)
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(searchClass[i],
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.blueAccent
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
-          SearchItemView()
+//          new Row(
+//            children: [
+//              Text('历史记录', style: TextStyle(fontSize: 16)),
+//              IconButton(
+//                icon: Icon(
+//                  Icons.delete_outline,
+//                  color: Colors.grey,
+//                ),
+//                onPressed: () {
+//                  showDialog(
+//                      context: context,
+//                      builder: (context) {
+//                        return AlertDialog(
+//                          content: Text(
+//                            "确定清空全部历史记录？",
+//                          ),
+//                          actions: <Widget>[
+//                            FlatButton(
+//                              onPressed: () {
+//                                Navigator.of(context).pop();
+//                              },
+//                              child: Text('取消'),
+//                              textColor: Colors.red,
+//                            ),
+//                            FlatButton(
+//                              onPressed: () {
+//                                items.clear();
+//                                Navigator.of(context).pop();
+//                              },
+//                              child: Text('清空'),
+//                              textColor: Colors.red,
+//                            ),
+//                          ],
+//                        );
+//                      });
+//                },
+//              )
+//            ],
+//          ),
+//          SearchItemView()
         ],
       ),
     );

@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'asset.dart';
 
 class SearchBarView extends SearchDelegate<String> {
-
+  @override
+  String get searchFieldLabel => '搜索';
 ////////清空按钮//////////
   @override
   List<Widget> buildActions(BuildContext context) {
