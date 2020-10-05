@@ -19,8 +19,8 @@ Future<Count> getData() async{
 }
 Future<City> getCity() async{
   Dio dio = Dio();
-  Response res = await dio.get('http://thesecondclass.linaxhua.cn/api/Intention/city?grade=17&academyNum=003&majorId=0&mark=0&order=1');
-  print(1);
+  Response res = await dio.get('http://thesecondclass.linaxhua.cn/api/Intention/city?grade=17&academyNum=003&major=0&mark=0&order=1');
+  print(res.data.toString());
   if (res.statusCode == 200) {
     print(1);
     return City.fromJson(res.data);
@@ -30,8 +30,9 @@ Future<City> getCity() async{
 }
 Future<Employ> getemploy() async{
   Dio dio = Dio();
-  Response res = await dio.get('http://thesecondclass.linaxhua.cn/api/Intention/job?grade=17&academyNum=003&majorId=0&mark=0&order=1');
+  Response res = await dio.get('http://thesecondclass.linaxhua.cn/api/Intention/job?grade=17&academyNum=003&major=0&mark=0&order=1');
   print(1);
+  print(res.data.toString());
   if (res.statusCode == 200) {
     print(1);
     return Employ.fromJson(res.data);

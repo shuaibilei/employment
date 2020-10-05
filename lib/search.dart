@@ -33,20 +33,22 @@ class _searchResultState extends State<searchResult> {
     items.add(widget.keyword);
     Map<String, dynamic> param = {
       "keyword": widget.keyword,
-      ///传入的值
-      "academyId": 0,
-      "educationBackground": 0,
-      "majorId": 0,
-      "intentionalityCity": "string",
-      "intentionalityJob": 0,
-      "mixSalary": 0,
-      "maxSalary": 0,
+      "academy": null,
+      "educationBackground": null,
+      "major": null,
+      "intentionalityCity": null,
+      "intentionalityJob": null,
+      "mixSalary": null,
+      "maxSalary": null,
       "sort": 0,
       "pageSize": 500,
-      "page": 1
+      "page": 1,
+      "filename": "string"
     };
     Dio dio = Dio();
     final Response response = await dio.put('http://thesecondclass.linaxhua.cn/api/Intention/query', data: param);
+    print(list?.data?.count ?? 0);
+    print(response.data);
     if (response.statusCode == 200) {
       return Intentjson.fromJson(response.data);
     } else {
@@ -81,7 +83,9 @@ class _searchResultState extends State<searchResult> {
     return loading
         ? Center(child: CircularProgressIndicator())
         : ListView.separated(
-        itemCount: list?.data?.rows?.length ?? 0,
+        itemCount:
+        list?.data?.count ?? 0
+        ,
         itemBuilder: (context, index) {
           return getItem(index);
         },
@@ -94,11 +98,11 @@ class _searchResultState extends State<searchResult> {
     return GestureDetector(
       child: Container(
         child: ListTile(
-            title: Text(list.data?.rows[index].sname ?? ""),
+            title: Text(list?.data?.rows[index].sname ?? ""),
             subtitle: Text(
-                acadmy(list.data?.rows[index].academyId ?? "")+"\n"
-                    +majoy(list.data?.rows[index].majorId ?? "")
+                list?.data?.rows[index].major??""
             ),
+
 
         ),
       ),
@@ -133,7 +137,8 @@ class _searchResultState extends State<searchResult> {
                                   list.data?.rows[n].intentionalityCity3 ?? "",
                                   list.data?.rows[n].intentionalityJob1 ?? "",
                                   list.data?.rows[n].intentionalityJob2 ?? "",
-                                  list.data?.rows[n].intentionalityJob3 ?? "",),
+                                  list.data?.rows[n].intentionalityJob3 ?? "",
+                                  list.data?.rows[n].failedCourses ?? "",),
                       )))));
             });
       },
@@ -309,94 +314,6 @@ class _SearchItemState extends State<SearchItem> {
   }
 }
 
-//Future<Intentjson>Data()async{
-//
-//  var res= await http.get(
-//      'http://thesecondclass.linaxhua.cn/api/Intention/queryBySno?sno=$word'
-//  );
-//  if(res.statusCode==200){
-//    print(jsonDecode(res.body)['data']);
-//    return Intentjson.fromJson(jsonDecode(res.body));
-//
-//  }else{
-//    Future.error("请求失败");
-//  }
-//}
-String acadmy(int value){
-  switch (value){
-    case 1:
-    return ("机电工程学院");
-    break;
-    case 2:
-      return ("信息与通信学院");
-      break;
-    case 3:
-      return ("计算机与信息安全学院");
-      break;
-    case 4:
-      return ("艺术与设计学院");
-      break;
-      case 5:
-    return ("商学院");
-    break;
-    case 6:
-      return ("外国语学院");
-      break;
-    case 7:
-      return ("数学与计算科学学院");
-      break;
-    case 8:
-      return ("电子工程与自动化学院");
-      break;
-    case 9:
-      return ("法学院");
-      break;
-    case 10:
-      return ("材料科学与工程学院");
-      break;
-    case 12:
-      return ("生命与环境科学学院");
-      break;
-    case 15:
-      return ("建筑与交通工程学院");
-      break;
-    default:
-      return ("不详");
-
-  }
-}
-
-String majoy(int value){
-  switch (value){
-    case 13:
-      return ("计算机类");
-      break;
-    case 14:
-      return ("计算机科学与技术（卓越）");
-      break;
-    case 15:
-      return ("计算机科学与技术");
-      break;
-    case 16:
-      return ("软件工程");
-      break;
-    case 17:
-      return ("信息安全");
-      break;
-    case 18:
-      return ("信息对抗技术");
-      break;
-    case 19:
-      return ("物联网工程");
-      break;
-    case 20:
-      return ("智能科学与技术");
-      break;
-    default:
-      return ("不详");
-
-  }
 
 
 
-}

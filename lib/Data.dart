@@ -41,7 +41,8 @@ class TransferDataEntity {
       this._intentionalityCity3,
       this._intentionalityJob1,
       this._intentionalityJob2,
-      this._intentionalityJob3);
+      this._intentionalityJob3,
+      this._failedCourses);
 }
 
 class InfoDialog extends StatefulWidget {
@@ -175,7 +176,7 @@ class _InfoDialogState extends State<InfoDialog> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        "技   术：",
+                        "掌握技术：",
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.normal,
@@ -204,7 +205,7 @@ class _InfoDialogState extends State<InfoDialog> {
                     ],
                   ),
                   Text(
-                    "当前城市：" + widget.keyword[n]._location,
+                    "挂科科目：" + widget.keyword[n]._failedCourses,
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.normal,

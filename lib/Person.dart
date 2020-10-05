@@ -1,16 +1,16 @@
 import 'package:employment/Login/LoginPager.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
 
 class Pearson extends StatelessWidget {
 
-  Future logOut(BuildContext context) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool('status', false);
-    Navigator.of(context).pushAndRemoveUntil(
-        new MaterialPageRoute(builder: (context) => LoginPage()
-        ), (route) => route == null);
-  }
+//  Future logOut(BuildContext context) async {
+//    SharedPreferences prefs = await SharedPreferences.getInstance();
+//    prefs.setBool('status', false);
+//    Navigator.of(context).pushAndRemoveUntil(
+//        new MaterialPageRoute(builder: (context) => LoginPage()
+//        ), (route) => route == null);
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class Pearson extends StatelessWidget {
           splashColor: Colors.black,
           child: (Text("退出登录")),
           onPressed: () {
-            logOut(context);
+//            logOut(context);
           },
         ),
       ),

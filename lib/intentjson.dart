@@ -1,12 +1,19 @@
 class Intentjson {
   int code;
+  List<CountAll> countAll;
   String message;
   Data data;
 
-  Intentjson({this.code, this.message, this.data});
+  Intentjson({this.code, this.countAll, this.message, this.data});
 
   Intentjson.fromJson(Map<String, dynamic> json) {
     code = json['code'];
+    if (json['countAll'] != null) {
+      countAll = new List<CountAll>();
+      json['countAll'].forEach((v) {
+        countAll.add(new CountAll.fromJson(v));
+      });
+    }
     message = json['message'];
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }
@@ -14,10 +21,29 @@ class Intentjson {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['code'] = this.code;
+    if (this.countAll != null) {
+      data['countAll'] = this.countAll.map((v) => v.toJson()).toList();
+    }
     data['message'] = this.message;
     if (this.data != null) {
       data['data'] = this.data.toJson();
     }
+    return data;
+  }
+}
+
+class CountAll {
+  int count;
+
+  CountAll({this.count});
+
+  CountAll.fromJson(Map<String, dynamic> json) {
+    count = json['count'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['count'] = this.count;
     return data;
   }
 }
@@ -52,9 +78,9 @@ class Rows {
   int id;
   String sno;
   String sname;
-  int academyId;
+  String academy;
   int educationBackground;
-  int majorId;
+  String major;
   int status;
   String employmentOrientation;
   String intentionalityCity1;
@@ -66,8 +92,8 @@ class Rows {
   String phone;
   String qq;
   String skill;
-  String location;
-  String company;
+  Null location;
+  Null company;
   int salary;
   String failedCourses;
   String createdAt;
@@ -77,9 +103,9 @@ class Rows {
       {this.id,
         this.sno,
         this.sname,
-        this.academyId,
+        this.academy,
         this.educationBackground,
-        this.majorId,
+        this.major,
         this.status,
         this.employmentOrientation,
         this.intentionalityCity1,
@@ -102,9 +128,9 @@ class Rows {
     id = json['id'];
     sno = json['sno'];
     sname = json['sname'];
-    academyId = json['academyId'];
+    academy = json['academy'];
     educationBackground = json['educationBackground'];
-    majorId = json['majorId'];
+    major = json['major'];
     status = json['status'];
     employmentOrientation = json['employmentOrientation'];
     intentionalityCity1 = json['intentionalityCity1'];
@@ -129,9 +155,9 @@ class Rows {
     data['id'] = this.id;
     data['sno'] = this.sno;
     data['sname'] = this.sname;
-    data['academyId'] = this.academyId;
+    data['academy'] = this.academy;
     data['educationBackground'] = this.educationBackground;
-    data['majorId'] = this.majorId;
+    data['major'] = this.major;
     data['status'] = this.status;
     data['employmentOrientation'] = this.employmentOrientation;
     data['intentionalityCity1'] = this.intentionalityCity1;
